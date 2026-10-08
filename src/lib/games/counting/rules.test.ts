@@ -179,6 +179,15 @@ describe('generateLevel', () => {
 		}
 	});
 
+	it('rotates the fruit kind per level', () => {
+		const kindsOf = (level: number) =>
+			new Set(generateLevel(level, 5).flatMap((round) => round.fruits.map((fruit) => fruit.kind)));
+		expect(kindsOf(2)).toEqual(new Set(['pear']));
+		expect(kindsOf(5)).toEqual(new Set(['grapes']));
+		expect(kindsOf(7)).toEqual(new Set([FRUITS[6], FRUITS[7]]));
+		expect(kindsOf(9)).toEqual(new Set([FRUITS[8], FRUITS[9], FRUITS[0]]));
+	});
+
 	it('returns no rounds for an unknown level', () => {
 		expect(generateLevel(99, 1)).toEqual([]);
 	});

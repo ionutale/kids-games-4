@@ -202,10 +202,11 @@ export function layoutFruits(
 	count: number,
 	layout: FruitLayout,
 	kinds: number,
-	rand: () => number
+	rand: () => number,
+	startKind = 0
 ): Round['fruits'] {
 	const kindCount = clamp(Math.round(kinds), 1, FRUITS.length);
-	const kindAt = (index: number) => FRUITS[index % kindCount];
+	const kindAt = (index: number) => FRUITS[(startKind + (index % kindCount)) % FRUITS.length];
 	const fruits: Round['fruits'] = [];
 
 	if (layout === 'row') {
@@ -269,6 +270,6 @@ export function generateLevel(level: number, seed?: number): Round[] {
 	return pickCounts(config, rand).map((count) => ({
 		count,
 		options: makeOptions(config, count, rand),
-		fruits: layoutFruits(count, config.layout, config.kinds, rand)
+		fruits: layoutFruits(count, config.layout, config.kinds, rand, (level - 1) % FRUITS.length)
 	}));
 }
