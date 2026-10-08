@@ -1,0 +1,31 @@
+<!-- Cozy Nook app icon: paper rounded square with Bufi's face. `scripts/generate-icons.mjs`
+     rasterizes it, so it must stay self-contained (no CSS variables) and must keep the
+     rounded-square background rect and the glyph group around the owl, which the
+     maskable and Apple variants rewrite by exact markup. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+	<rect x="0" y="0" width="512" height="512" rx="112" fill="#fdf6e9" />
+	<g id="glyph">
+		<!-- ear tufts -->
+		<path d="M162 158 L134 56 L220 132 Z" fill="#8c6242" />
+		<path d="M350 158 L378 56 L292 132 Z" fill="#8c6242" />
+		<!-- head -->
+		<circle cx="256" cy="262" r="132" fill="#8c6242" />
+		<!-- face patch -->
+		<ellipse cx="256" cy="296" rx="88" ry="78" fill="#fdf6e9" />
+		<!-- cheeks -->
+		<circle cx="172" cy="306" r="14" fill="#b0577a" opacity="0.55" />
+		<circle cx="340" cy="306" r="14" fill="#b0577a" opacity="0.55" />
+		<!-- eyes -->
+		<circle cx="212" cy="250" r="31" fill="#fdf6e9" stroke="#4a3b2f" stroke-width="7" />
+		<circle cx="300" cy="250" r="31" fill="#fdf6e9" stroke="#4a3b2f" stroke-width="7" />
+		<circle cx="212" cy="257" r="13" fill="#4a3b2f" />
+		<circle cx="300" cy="257" r="13" fill="#4a3b2f" />
+		<circle cx="217" cy="249" r="4.5" fill="#fdf6e9" />
+		<circle cx="305" cy="249" r="4.5" fill="#fdf6e9" />
+		<!-- beak -->
+		<path d="M256 290 L242 312 L270 312 Z" fill="#c9752c" />
+		<!-- feet -->
+		<ellipse cx="222" cy="404" rx="23" ry="11" fill="#c9752c" />
+		<ellipse cx="290" cy="404" rx="23" ry="11" fill="#c9752c" />
+	</g>
+</svg>
