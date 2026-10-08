@@ -276,7 +276,7 @@ prompt_watermelon: "How many watermelons?"
 - Create: `src/lib/pwa/policy.ts`, `src/lib/pwa/policy.test.ts`, `src/lib/pwa/client.ts`
 - Create: `src/service-worker.ts`
 - Create: `src/lib/components/UpdateToast.svelte`, `src/lib/components/InstallHint.svelte`
-- Modify: `src/app.html` (manifest link, `apple-touch-icon`, apple web-app meta — allowed), `vite.config.ts` ONLY if needed to set `serviceWorker: { register: false }` inside `sveltekit(...)` (allowed one-line edit; check first)
+- Modify: `src/app.html` (manifest link, `apple-touch-icon`, apple web-app meta — allowed), `vite.config.ts` ONLY if needed to set `serviceWorker: { register: false }` inside `sveltekit(...)` (allowed one-line edit; check first), `tsconfig.json` (add `"exclude": ["src/service-worker"]` so the app typecheck skips the service worker — kit validates this)
 
 **Interfaces:**
 
