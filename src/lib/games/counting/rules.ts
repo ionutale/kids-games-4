@@ -62,9 +62,27 @@ export const LEVELS: LevelConfig[] = [
 	{ level: 1, min: 1, max: 3, layout: 'row', choices: 2, tight: false, kinds: 1, assist: false },
 	{ level: 2, min: 1, max: 4, layout: 'row', choices: 2, tight: false, kinds: 1, assist: false },
 	{ level: 3, min: 1, max: 5, layout: 'row', choices: 3, tight: false, kinds: 1, assist: false },
-	{ level: 4, min: 2, max: 6, layout: 'cluster', choices: 3, tight: false, kinds: 1, assist: false },
+	{
+		level: 4,
+		min: 2,
+		max: 6,
+		layout: 'cluster',
+		choices: 3,
+		tight: false,
+		kinds: 1,
+		assist: false
+	},
 	{ level: 5, min: 1, max: 8, layout: 'scatter', choices: 3, tight: false, kinds: 1, assist: true },
-	{ level: 6, min: 2, max: 10, layout: 'scatter', choices: 3, tight: false, kinds: 2, assist: true },
+	{
+		level: 6,
+		min: 2,
+		max: 10,
+		layout: 'scatter',
+		choices: 3,
+		tight: false,
+		kinds: 2,
+		assist: true
+	},
 	{ level: 7, min: 1, max: 12, layout: 'scatter', choices: 4, tight: true, kinds: 2, assist: true },
 	{ level: 8, min: 1, max: 15, layout: 'scatter', choices: 4, tight: true, kinds: 2, assist: true },
 	{ level: 9, min: 3, max: 18, layout: 'scatter', choices: 4, tight: true, kinds: 3, assist: true },
@@ -125,11 +143,7 @@ function pickCounts(config: LevelConfig, rand: () => number): number[] {
  * distractors, all unique and inside [min..max]. Tight levels pick the
  * numeric neighbours first (±1, ±2, …); other levels pick at random.
  */
-export function makeOptions(
-	config: LevelConfig,
-	correct: number,
-	rand: () => number
-): number[] {
+export function makeOptions(config: LevelConfig, correct: number, rand: () => number): number[] {
 	const inRange = (value: number) =>
 		value >= config.min && value <= config.max && value !== correct;
 	const neighbours: number[] = [];
@@ -141,7 +155,9 @@ export function makeOptions(
 	for (let value = config.min; value <= config.max; value++) {
 		if (value !== correct && !neighbours.includes(value)) rest.push(value);
 	}
-	const ordered = config.tight ? [...neighbours, ...rest] : shuffled([...rest, ...neighbours], rand);
+	const ordered = config.tight
+		? [...neighbours, ...rest]
+		: shuffled([...rest, ...neighbours], rand);
 	const distractors = ordered.slice(0, config.choices - 1);
 	return shuffled([correct, ...distractors], rand);
 }
@@ -174,8 +190,7 @@ function makeFruit(
 	};
 }
 
-const clamp = (value: number, low: number, high: number) =>
-	Math.min(high, Math.max(low, value));
+const clamp = (value: number, low: number, high: number) => Math.min(high, Math.max(low, value));
 
 /**
  * Positions for one round's fruit, in % of the field. Rows are evenly
