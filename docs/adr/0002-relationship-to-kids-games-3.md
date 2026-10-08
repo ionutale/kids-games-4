@@ -1,0 +1,3 @@
+# Cozy Nook is a fresh app; kids-games-3 is frozen reference
+
+kids-games-3 ("Lumi", one counting game) was the first draft of this product. Cozy Nook starts fresh in kids-games-4 because the product now demands a base the prototype lacks: profiles, a ten-level system with celebrations and staged hints across all games, procedural audio, PWA offline, and a parent gate. Selected pieces are ported deliberately (level/unlock logic, confetti, the ten-fruit SVG set, the Paraglide it/ro/en/de scaffold, the static SvelteKit setup), but no file is copied wholesale and kids-games-3 is never modified — it remains a read-only reference for the team.
