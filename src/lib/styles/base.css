@@ -1,0 +1,46 @@
+/* Fonts first so the custom properties below resolve against real families.
+   latin-ext so Romanian/German diacritics render. */
+@import '@fontsource/baloo-2/latin-ext-600.css';
+@import '@fontsource/baloo-2/latin-ext-700.css';
+@import '@fontsource/nunito/latin-ext-400.css';
+@import '@fontsource/nunito/latin-ext-600.css';
+@import '@fontsource/nunito/latin-ext-700.css';
+@import '@fontsource/nunito/latin-ext-800.css';
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--cn-paper);
+  color: var(--cn-ink);
+  font-family: var(--cn-font-body);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+h1, h2, h3 { font-family: var(--cn-font-display); margin: 0; }
+
+button { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
+
+:focus-visible { outline: 3px solid var(--cn-accent); outline-offset: 2px; border-radius: 8px; }
+
+.cn-press { transition: transform var(--cn-t-fast) var(--cn-ease); }
+.cn-press:active { transform: scale(.96); }
+
+.cn-safe {
+  padding-top: max(var(--cn-safe-top), var(--cn-space-3));
+  padding-bottom: max(var(--cn-safe-bottom), var(--cn-space-3));
+  padding-left: max(var(--cn-safe-x), var(--cn-space-4));
+  padding-right: max(var(--cn-safe-x), var(--cn-space-4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
