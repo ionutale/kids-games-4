@@ -40,12 +40,14 @@
 ### Task 1: Project scaffold & tooling
 
 **Files:**
+
 - Create: `package.json`, `vite.config.ts`, `tsconfig.json`, `.npmrc`, `.gitignore`, `.prettierignore`, `prettier.config.js`
 - Create: `src/app.html`, `src/app.d.ts`, `src/app.css`, `src/lib/index.ts`, `src/hooks.ts`, `src/hooks.server.ts`
 - Create: `src/routes/+layout.ts`, `src/routes/+layout.svelte`, `src/routes/+page.svelte`
 - Create: `static/favicon.svg`, `project.inlang/settings.json`, `messages/{it,ro,en,de}.json`
 
 **Interfaces:**
+
 - Consumes: nothing (first task).
 - Produces: working SvelteKit 3 static build; `$lib/paraglide/messages` (all tasks); `$lib` alias; vitest runner; `pnpm` scripts `dev/build/preview/check/test/icons`.
 
@@ -60,10 +62,12 @@
 ### Task 2: Design tokens & base styles
 
 **Files:**
+
 - Create: `src/lib/styles/tokens.css`, `src/lib/styles/base.css`
 - Modify: `src/app.css` (replace placeholder with the two imports)
 
 **Interfaces:**
+
 - Consumes: Task 1 build.
 - Produces: every `--cn-*` token (below) for all later tasks; global base styles incl. reduced-motion and fonts.
 
@@ -75,9 +79,11 @@
 ### Task 3: Save data — profiles, progress, settings
 
 **Files:**
+
 - Create: `src/lib/storage/save.ts`, `src/lib/storage/save.test.ts`
 
 **Interfaces:**
+
 - Consumes: Task 1.
 - Produces (exact, consumed by Tasks 8, 9, 11, 12):
   - `type AvatarId = 'owl'|'fox'|'bear'|'bunny'|'cat'|'hedgehog'`
@@ -100,9 +106,11 @@
 ### Task 4: Procedural audio engine
 
 **Files:**
+
 - Create: `src/lib/audio/synth.ts`, `src/lib/audio/synth.test.ts`, `src/lib/audio/music.ts`, `src/lib/audio/sfx.ts`, `src/lib/audio/engine.ts`, `src/lib/audio/index.ts`
 
 **Interfaces:**
+
 - Consumes: Task 1. (Read `cozy-jigsaw/src/audio/engine.ts` and `cozy-forest-village/src/audio/index.ts` for proven WebAudio patterns.)
 - Produces (exact, consumed by Tasks 8, 11, 12):
   - `type SfxName = 'tap'|'correct'|'wrong'|'hint'|'unlock'|'celebrate'|'ui'`
@@ -120,10 +128,12 @@
 ### Task 5: Counting rules + games registry
 
 **Files:**
+
 - Create: `src/lib/games/counting/rules.ts`, `src/lib/games/counting/rules.test.ts`
 - Create: `src/lib/games/registry.ts`, `src/lib/games/registry.test.ts`
 
 **Interfaces:**
+
 - Consumes: Task 1. (Port patterns from `kids-games-3/src/lib/count-fruit.ts`, adapted — do not copy wholesale.)
 - Produces (exact, consumed by Tasks 11, 12):
   - `type FruitId = 'apple'|'pear'|'orange'|'banana'|'grapes'|'strawberry'|'lemon'|'cherry'|'peach'|'watermelon'` (this order = `FRUITS` array)
@@ -145,11 +155,13 @@
 ### Task 6: i18n messages (it/ro/en/de)
 
 **Files:**
+
 - Modify: `messages/it.json`, `messages/ro.json`, `messages/en.json`, `messages/de.json` (seeded in Task 1)
 - Create: `src/lib/i18n.test.ts`
 - Modify: `tsconfig.json` (add `"resolveJsonModule": true` to compilerOptions — allowed one-line edit)
 
 **Interfaces:**
+
 - Consumes: Task 1. Seed translations for overlapping keys exist in `kids-games-3/messages/{locale}.json` (read them for tone; adapt, don't copy blindly).
 - Produces: the complete key set below in all four locales, for Tasks 9, 11, 12.
 
@@ -223,9 +235,11 @@ prompt_watermelon: "How many watermelons?"
 ### Task 7: Fruit art component
 
 **Files:**
+
 - Create: `src/lib/components/art/Fruit.svelte`
 
 **Interfaces:**
+
 - Consumes: `FruitId` from `$lib/games/counting/rules` (Task 5); tokens (Task 2).
 - Produces (consumed by Tasks 11, 12): component props `{ kind: FruitId; size?: number (default 72); mood?: 'happy'|'plain' (default 'happy'); class?: string }`.
 
@@ -235,6 +249,7 @@ prompt_watermelon: "How many watermelons?"
 ### Task 8: Bufi mascot, avatars, small UI primitives
 
 **Files:**
+
 - Create: `src/lib/components/art/Bufi.svelte`
 - Create: `src/lib/components/art/Avatar.svelte`
 - Create: `src/lib/components/ui/IconButton.svelte`
@@ -242,6 +257,7 @@ prompt_watermelon: "How many watermelons?"
 - Create: `src/lib/components/ui/ParentGate.svelte`
 
 **Interfaces:**
+
 - Consumes: tokens (T2), save module (T3), audio singleton (T4).
 - Produces (consumed by Tasks 10, 11, 12):
   - `Bufi.svelte` props `{ pose?: 'idle'|'hint'|'cheer'|'sleepy' (default 'idle'); size?: number (default 120); class?: string }` — cute round owl, SVG, `aria-hidden="true"`, gentle CSS animations (blink; per-pose motion) all disabled by reduced-motion.
@@ -255,6 +271,7 @@ prompt_watermelon: "How many watermelons?"
 ### Task 9: PWA — manifest, icons, service worker, update & install UX
 
 **Files:**
+
 - Create: `static/manifest.webmanifest`, `scripts/generate-icons.mjs`, `src/lib/assets/icon.svg`
 - Create: `src/lib/pwa/policy.ts`, `src/lib/pwa/policy.test.ts`, `src/lib/pwa/client.ts`
 - Create: `src/service-worker.ts`
@@ -262,6 +279,7 @@ prompt_watermelon: "How many watermelons?"
 - Modify: `src/app.html` (manifest link, `apple-touch-icon`, apple web-app meta — allowed), `vite.config.ts` ONLY if needed to set `serviceWorker: { register: false }` inside `sveltekit(...)` (allowed one-line edit; check first)
 
 **Interfaces:**
+
 - Consumes: Task 1 build; message keys `update_ready`, `update_refresh`, `install_ios`, `later` (T6); tokens (T2). Reference: `music-player-pwa/pwa/src/service-worker.ts`, `src/lib/swPolicy.ts`, `scripts/generate-icons.mjs`, `static/manifest.webmanifest`, `UpdateToast.svelte`, `InstallHint.svelte` (read-only, adapt).
 - Produces (consumed by Task 11): `initPwa(): void` from `$lib/pwa/client` — registers `/service-worker.js` (browser + production only), listens `updatefound`, exposes an internal subscription that shows nothing by itself; exports `applyUpdate(): void` (posts `SKIP_WAITING`); reloads once on `controllerchange`. Components `UpdateToast` and `InstallHint` are self-contained (subscribe/register themselves) and can be dropped into any page.
 - [ ] **Step 1: pure policy + tests first.** `policy.ts`: `type CacheDecision = 'bypass'|'cache-first'|'network-first'`; `decide({ method, url, origin, mode, destination }, appOrigin): CacheDecision` — `GET` same-origin navigation → `network-first`; `GET` same-origin asset → `cache-first`; anything else (POST, cross-origin, range) → `bypass`. Tests cover each branch.
@@ -274,9 +292,11 @@ prompt_watermelon: "How many watermelons?"
 ### Task 10: Celebration components
 
 **Files:**
+
 - Create: `src/lib/components/Confetti.svelte`, `src/lib/components/Sparkles.svelte`, `src/lib/components/LevelComplete.svelte`
 
 **Interfaces:**
+
 - Consumes: tokens (T2); message keys `level_complete`, `next_level`, `play_again`, `all_levels`, `new`, `cheer` (T6). Reference: `kids-games-3/src/lib/components/Confetti.svelte` (adapt).
 - Produces (consumed by Task 12):
   - `Confetti.svelte` props `{ active: boolean; pieces?: number (default 90); onDone?: () => void }` — canvas `position:absolute; inset:0; pointer-events:none`, parent must be `position:relative`; stops + clears when `active` false; reduced-motion → renders nothing and calls `onDone` immediately.
@@ -288,11 +308,13 @@ prompt_watermelon: "How many watermelons?"
 ### Task 11: App shell — layout, home, profiles, settings
 
 **Files:**
+
 - Modify: `src/routes/+layout.svelte`
 - Modify: `src/routes/+page.svelte` (home)
 - Create: `src/routes/settings/+page.svelte`
 
 **Interfaces:**
+
 - Consumes: Tasks 2, 3, 4, 5 (registry), 6, 7, 8, 9 (`initPwa`), 10.
 - Produces: navigable shell (`/`, `/settings`), first-run profile setup, active-profile switching, parent-gated settings. Reference for i18n patterns: `kids-games-3/src/routes/+layout.svelte` + `+page.svelte` (read them).
 - [ ] **Step 1: `+layout.svelte`.** Keep it thin: import app.css; `{@render children()}`; `<svelte:head><title>{m.app_name()}</title></svelte:head>`; `onMount`: apply saved mute (`audio.setMuted(save.settings.muted)`), `initPwa()`, and a one-shot `pointerdown` listener on `window` that calls `audio.unlock()` (audio then applies any remembered scene). `UpdateToast` + `InstallHint` mounted here (they self-manage visibility).
@@ -303,12 +325,14 @@ prompt_watermelon: "How many watermelons?"
 ### Task 12: Counting game — level map + play screen
 
 **Files:**
+
 - Create: `src/routes/play/counting/+page.svelte` (level map)
 - Create: `src/routes/play/counting/[level]/+page.svelte` (game)
 - Create: `src/lib/games/counting/NumeralBubble.svelte`
 - Create: `src/lib/games/counting/session.svelte.ts`
 
 **Interfaces:**
+
 - Consumes: Tasks 2, 3, 4, 5 (rules + registry), 6, 7, 8, 10. Reference: `kids-games-3/src/routes/play/count-fruit/[level]/+page.svelte` + `+page.svelte` (adapt flows, new art/audio).
 - Produces: complete gameplay loop; `NumeralBubble` props `{ value: number; state: 'idle'|'glow'|'pulse'|'correct'|'wrong'; onclick?: () => void }` (wood pill, ≥64px, ink numeral, `cn-press`; `glow` = soft accent halo, `pulse` = stronger animated halo, `correct` = leaf fill + scale pop, `wrong` = wiggle 400ms + stays idle after).
 - [ ] **Step 1: `session.svelte.ts`.** Factory `createCountingSession(level: number)` returning runes state + methods: `rounds` (from `generateLevel`), `roundIndex`, `misses`, `manualHints`, `counted` (Set of fruit indexes, assist ticker), `phase: 'playing'|'celebrating'|'complete'`, derived `round`, `hint`, `isLast`; methods `tapFruit(i)`, `answer(value: number): boolean` (returns correct), `help()`, `advance()` (called after celebrate delay), `replay()` (fresh rounds, same level). No timers inside; the page owns the 10s idle timer and calls `session.help()`-style nudges via a `markIdle()` method feeding `hintStage(misses, manualHints, idle)`.
@@ -319,9 +343,11 @@ prompt_watermelon: "How many watermelons?"
 ### Task 13: README, deploy config, final polish
 
 **Files:**
+
 - Create: `README.md`, `vercel.json`
 
 **Interfaces:**
+
 - Consumes: everything.
 - [ ] **Step 1: `vercel.json`.** SPA rewrites: `{"rewrites":[{"source":"/(.*)","destination":"/index.html"}]}`.
 - [ ] **Step 2: `README.md`.** What it is (one paragraph + spec link), stack, `pnpm install`, `pnpm dev`, `pnpm test`, `pnpm check`, `pnpm build`, `pnpm preview`, `pnpm icons`; deploy: import the GitHub repo in Vercel (static build, no env vars; includes `vercel.json` rewrites); structure map (`src/lib/{audio,storage,games,pwa,components}`, routes); credits: reference projects used, portrait/landscape note.

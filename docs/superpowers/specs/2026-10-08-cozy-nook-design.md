@@ -25,18 +25,18 @@ Cozy Nook is a mobile-first web app (installable PWA) of calm learning games for
 
 Loop: fruits appear; the kid counts them and taps the matching numeral bubble. 5 rounds per level. Tap-to-count assist from level 5 (each fruit tap ticks a counter); hint stages apply as above.
 
-| Level | Count | Layout | Choices | Kinds | Tight distractors |
-|---|---|---|---|---|---|
-| 1 | 1–3 | row | 2 | 1 | no |
-| 2 | 1–4 | row | 2 | 1 | no |
-| 3 | 1–5 | row | 3 | 1 | no |
-| 4 | 2–6 | cluster | 3 | 1 | no |
-| 5 | 1–8 | scatter | 3 | 1 | no (assist) |
-| 6 | 2–10 | scatter | 3 | 2 | no (assist) |
-| 7 | 1–12 | scatter | 4 | 2 | yes |
-| 8 | 1–15 | scatter | 4 | 2 | yes |
-| 9 | 3–18 | scatter | 4 | 3 | yes |
-| 10 | 5–20 | scatter | 4 | 3 | yes |
+| Level | Count | Layout  | Choices | Kinds | Tight distractors |
+| ----- | ----- | ------- | ------- | ----- | ----------------- |
+| 1     | 1–3   | row     | 2       | 1     | no                |
+| 2     | 1–4   | row     | 2       | 1     | no                |
+| 3     | 1–5   | row     | 3       | 1     | no                |
+| 4     | 2–6   | cluster | 3       | 1     | no                |
+| 5     | 1–8   | scatter | 3       | 1     | no (assist)       |
+| 6     | 2–10  | scatter | 3       | 2     | no (assist)       |
+| 7     | 1–12  | scatter | 4       | 2     | yes               |
+| 8     | 1–15  | scatter | 4       | 2     | yes               |
+| 9     | 3–18  | scatter | 4       | 3     | yes               |
+| 10    | 5–20  | scatter | 4       | 3     | yes               |
 
 Art: ten SVG fruits (ported and repolished from kids-games-3), wooden numeral bubbles, cozy garden scene.
 
