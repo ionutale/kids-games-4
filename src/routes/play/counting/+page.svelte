@@ -178,6 +178,10 @@
 
 	.choose {
 		font-size: var(--cn-text-lg);
+		text-decoration: underline;
+		text-decoration-color: var(--cn-leaf);
+		text-decoration-thickness: 3px;
+		text-underline-offset: 4px;
 	}
 
 	.progress {
@@ -213,6 +217,10 @@
 		box-shadow: var(--cn-shadow-1);
 		font-family: var(--cn-font-display);
 		font-size: var(--cn-text-lg);
+	}
+
+	.tile:not(.locked):not(.done) {
+		border-color: var(--cn-leaf-dark);
 	}
 
 	.tile.done {

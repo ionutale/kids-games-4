@@ -269,42 +269,70 @@
 		<div class="field">
 			<svg
 				class="tuft tuft--left"
-				viewBox="0 0 40 32"
+				viewBox="0 0 48 40"
 				width="56"
 				height="44"
 				aria-hidden="true"
 				focusable="false"
 			>
-				<g
-					stroke="var(--cn-leaf-dark)"
-					stroke-width="3"
-					stroke-linecap="round"
-					fill="none"
-					opacity="0.35"
-				>
-					<path d="M8 30 Q10 18 6 10" />
-					<path d="M18 30 Q19 16 16 6" />
-					<path d="M28 30 Q30 20 34 12" />
+				<g opacity="0.4">
+					<path
+						d="M24 38 Q23 28 26 18"
+						fill="none"
+						stroke="var(--cn-leaf-dark)"
+						stroke-width="3"
+						stroke-linecap="round"
+					/>
+					<path d="M24 30 Q15 29 10 19 Q20 20 24 30 Z" fill="var(--cn-leaf)" />
+					<path
+						d="M23 29 Q17 26 12 20"
+						fill="none"
+						stroke="var(--cn-leaf-dark)"
+						stroke-width="1.5"
+						stroke-linecap="round"
+					/>
+					<path d="M25 24 Q34 23 39 13 Q29 14 25 24 Z" fill="var(--cn-leaf)" />
+					<path
+						d="M26 23 Q32 20 37 14"
+						fill="none"
+						stroke="var(--cn-leaf-dark)"
+						stroke-width="1.5"
+						stroke-linecap="round"
+					/>
 				</g>
 			</svg>
 			<svg
 				class="tuft tuft--right"
-				viewBox="0 0 40 32"
+				viewBox="0 0 48 40"
 				width="56"
 				height="44"
 				aria-hidden="true"
 				focusable="false"
 			>
-				<g
-					stroke="var(--cn-leaf-dark)"
-					stroke-width="3"
-					stroke-linecap="round"
-					fill="none"
-					opacity="0.35"
-				>
-					<path d="M8 30 Q10 18 6 10" />
-					<path d="M18 30 Q19 16 16 6" />
-					<path d="M28 30 Q30 20 34 12" />
+				<g opacity="0.4">
+					<path
+						d="M24 38 Q25 28 22 18"
+						fill="none"
+						stroke="var(--cn-leaf-dark)"
+						stroke-width="3"
+						stroke-linecap="round"
+					/>
+					<path d="M24 30 Q33 29 38 19 Q28 20 24 30 Z" fill="var(--cn-leaf)" />
+					<path
+						d="M25 29 Q31 26 36 20"
+						fill="none"
+						stroke="var(--cn-leaf-dark)"
+						stroke-width="1.5"
+						stroke-linecap="round"
+					/>
+					<path d="M23 24 Q14 23 9 13 Q19 14 23 24 Z" fill="var(--cn-leaf)" />
+					<path
+						d="M22 23 Q16 20 11 14"
+						fill="none"
+						stroke="var(--cn-leaf-dark)"
+						stroke-width="1.5"
+						stroke-linecap="round"
+					/>
 				</g>
 			</svg>
 			{#each round.fruits as fruit, i (i)}
@@ -438,7 +466,12 @@
 		height: 55dvh;
 		min-height: 280px;
 		border-radius: var(--cn-radius);
-		background: linear-gradient(180deg, var(--cn-sky-2) 0%, var(--cn-paper) 78%);
+		background: linear-gradient(
+			180deg,
+			var(--cn-sky-2) 0%,
+			var(--cn-paper) 72%,
+			rgba(127, 166, 83, 0.12) 100%
+		);
 		border: 2px solid var(--cn-border);
 		overflow: hidden;
 		touch-action: manipulation;
@@ -451,7 +484,7 @@
 		right: 0;
 		bottom: 0;
 		height: 26%;
-		background: linear-gradient(180deg, rgba(127, 166, 83, 0) 0%, rgba(127, 166, 83, 0.18) 100%);
+		background: linear-gradient(180deg, rgba(127, 166, 83, 0) 0%, rgba(127, 166, 83, 0.25) 100%);
 		pointer-events: none;
 		z-index: 0;
 	}
@@ -461,6 +494,18 @@
 		bottom: 4px;
 		pointer-events: none;
 		z-index: 0;
+		transform-origin: 50% 100%;
+		animation: sprout-sway 5s ease-in-out infinite;
+	}
+
+	@keyframes sprout-sway {
+		0%,
+		100% {
+			rotate: -2deg;
+		}
+		50% {
+			rotate: 2deg;
+		}
 	}
 
 	.tuft--left {

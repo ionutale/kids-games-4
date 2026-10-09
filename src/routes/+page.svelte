@@ -495,6 +495,9 @@
 	.tile-icon {
 		flex: none;
 		line-height: 0;
+		padding: var(--cn-space-1);
+		border-radius: var(--cn-radius-sm);
+		background: rgba(127, 166, 83, 0.14);
 	}
 
 	.tile-text {

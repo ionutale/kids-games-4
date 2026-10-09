@@ -21,6 +21,7 @@
 		min-width: 64px;
 		min-height: 64px;
 		padding: var(--cn-space-2) var(--cn-space-4);
+		border: 2px solid var(--cn-leaf-dark);
 		border-radius: var(--cn-radius-pill);
 		background: var(--cn-wood);
 		color: var(--cn-paper);
