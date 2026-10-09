@@ -9,7 +9,7 @@
 	import { createCountingSession } from '#lib/games/counting/session.svelte.js';
 	import type { CountingSession } from '#lib/games/counting/session.svelte.js';
 	import Fruit from '#lib/components/art/Fruit.svelte';
-	import Bufi from '#lib/components/art/Bufi.svelte';
+	import Muguri from '#lib/components/art/Muguri.svelte';
 	import NumeralBubble from '#lib/games/counting/NumeralBubble.svelte';
 	import IconButton from '#lib/components/ui/IconButton.svelte';
 	import MuteButton from '#lib/components/ui/MuteButton.svelte';
@@ -135,7 +135,7 @@
 		if (hint === 2) return m.hint_strong();
 		return m.hint_reveal({ count: round.count });
 	});
-	const bufiPose = $derived(session?.phase !== 'playing' ? 'cheer' : hint > 0 ? 'hint' : 'idle');
+	const mascotPose = $derived(session?.phase !== 'playing' ? 'cheer' : hint > 0 ? 'hint' : 'idle');
 
 	function tapFruit(i: number, x: number, y: number): void {
 		if (!session || session.phase !== 'playing') return;
@@ -254,7 +254,7 @@
 		</div>
 
 		<div class="prompt-row">
-			<Bufi pose={bufiPose} size={64} />
+			<Muguri pose={mascotPose} size={64} />
 			<div class="prompt-text">
 				<p class="prompt">{prompt}</p>
 				{#if hintText}
@@ -262,7 +262,7 @@
 				{/if}
 			</div>
 			<IconButton label={m.hint_nudge()} size="sm" onclick={help}>
-				<Bufi pose="hint" size={28} />
+				<Muguri pose="hint" size={28} />
 			</IconButton>
 		</div>
 

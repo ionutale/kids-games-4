@@ -78,7 +78,7 @@
 >
 	<svg viewBox="0 0 64 64" width={size} height={size} role="presentation" focusable="false">
 		{#if id === 'owl'}
-			<!-- simplified Bufi face -->
+			<!-- plain owl avatar -->
 			<path d="M14 22 L10 8 L24 16 Z" fill="var(--cn-wood)" />
 			<path d="M50 22 L54 8 L40 16 Z" fill="var(--cn-wood)" />
 			<circle cx="32" cy="34" r="24" fill="var(--cn-wood)" />

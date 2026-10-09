@@ -73,7 +73,7 @@ const RECIPES: Record<SfxName, (bus: SfxBus, at: number) => void> = {
 	// Wrong answer: a quiet falling sigh (Bb3 → G#3). Never a buzzer, never punished.
 	wrong: (bus, at) => voice(bus, at, 233.08, 207.65, 0.3, 0.15, 'sine'),
 
-	// Bufi nudges: a quiet bell pair, 880 Hz with a soft octave-and-a-fifth shimmer on top.
+	// Muguri nudges: a quiet bell pair, 880 Hz with a soft octave-and-a-fifth shimmer on top.
 	hint: (bus, at) => {
 		voice(bus, at, 880, 880, 0.4, 0.05, 'sine');
 		voice(bus, at, 1320, 1320, 0.4, 0.02, 'sine');

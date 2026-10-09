@@ -5,7 +5,7 @@
 	import { audio } from '#lib/audio/index.js';
 	import { getCleared, isLevelOpen, loadSave } from '#lib/storage/save.js';
 	import { LEVELS, MAX_LEVEL } from '#lib/games/counting/rules.js';
-	import Bufi from '#lib/components/art/Bufi.svelte';
+	import Muguri from '#lib/components/art/Muguri.svelte';
 	import IconButton from '#lib/components/ui/IconButton.svelte';
 
 	const GAME_ID = 'counting';
@@ -76,7 +76,7 @@
 			<h1>{m.game_counting_name()}</h1>
 			<p>{m.game_counting_desc()}</p>
 		</div>
-		<Bufi pose="idle" size={72} />
+		<Muguri pose="idle" size={72} />
 	</header>
 
 	<h2 class="choose">{m.choose_level()}</h2>

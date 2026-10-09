@@ -15,7 +15,7 @@
 		type SaveData
 	} from '#lib/storage/save.js';
 	import { GAMES, type GameMeta } from '#lib/games/registry.js';
-	import Bufi from '#lib/components/art/Bufi.svelte';
+	import Muguri from '#lib/components/art/Muguri.svelte';
 	import Avatar from '#lib/components/art/Avatar.svelte';
 	import Fruit from '#lib/components/art/Fruit.svelte';
 	import IconButton from '#lib/components/ui/IconButton.svelte';
@@ -128,7 +128,7 @@
 
 	{#if save && profiles.length === 0}
 		<section class="card first-run" aria-label={m.home_who()}>
-			<Bufi pose="idle" size={96} />
+			<Muguri pose="idle" size={96} />
 			<h2>{m.home_who()}</h2>
 			<label class="field">
 				<span class="field-label">{m.kid_name()}</span>
@@ -164,7 +164,7 @@
 		</section>
 	{:else if save && active}
 		<section class="greet" aria-label={m.home_who()}>
-			<Bufi pose="idle" size={96} />
+			<Muguri pose="idle" size={96} />
 			<button
 				type="button"
 				class="chip cn-press"
@@ -248,7 +248,7 @@
 			{/each}
 			<div class="tile soon" aria-disabled="true">
 				<span class="tile-icon" aria-hidden="true">
-					<Bufi pose="sleepy" size={64} />
+					<Muguri pose="sleepy" size={64} />
 				</span>
 				<span class="tile-text">
 					<span class="tile-title">{m.coming_soon_tile()}</span>
