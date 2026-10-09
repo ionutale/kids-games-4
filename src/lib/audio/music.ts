@@ -72,11 +72,11 @@ const MELODY_DECAY_S = 0.34;
 const MELODY_HELD_DECAY_S = 0.9; // phrase endings ring out instead of ticking on
 const MELODY_PARTIAL_GAIN = 0.14; // the one upper partial: music-box shimmer, never a whine
 const MELODY_FILTER_HZ = 2400; // the one place the tune is kept from ever piercing
-const GRACE_LEVEL = 0.45; // ornaments are decoration, never statements
+const GRACE_LEVEL = 0.32; // ornaments are decoration, never statements
 const GRACE_DECAY_S = 0.16;
-const ECHO_LEVEL = 0.6;
+const ECHO_LEVEL = 0.5;
 const ECHO_DECAY_S = 0.26;
-const ECHO_MAX_MIDI = 84; // an octave echo that would go shrill simply does not play
+const ECHO_MAX_MIDI = 81; // an octave echo that would ring above A5 simply does not play
 
 // Bass: a soft sine on the chord root, and only on beats 1 and 3.
 const BASS_PEAK = 0.16;

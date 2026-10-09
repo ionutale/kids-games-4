@@ -207,7 +207,7 @@ export function isHeldNote(bar: number, step: number): boolean {
 // ---------------------------------------------------------------------------
 
 /** How often a bar carries an ornament at all. Most bars stay plain, on purpose. */
-export const ORNAMENT_CHANCE = 0.45;
+export const ORNAMENT_CHANCE = 0.28;
 
 /** The two ornaments: a quick lower neighbour before a note, or that note's octave above. */
 export type Ornament = 'grace' | 'echo';
