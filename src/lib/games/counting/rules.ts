@@ -59,8 +59,8 @@ export const FRUITS: FruitId[] = [
 ];
 
 export const LEVELS: LevelConfig[] = [
-	{ level: 1, min: 1, max: 3, layout: 'row', choices: 2, tight: false, kinds: 1, assist: false },
-	{ level: 2, min: 1, max: 4, layout: 'row', choices: 2, tight: false, kinds: 1, assist: false },
+	{ level: 1, min: 1, max: 3, layout: 'row', choices: 3, tight: false, kinds: 1, assist: false },
+	{ level: 2, min: 1, max: 4, layout: 'row', choices: 3, tight: false, kinds: 1, assist: false },
 	{ level: 3, min: 1, max: 5, layout: 'row', choices: 3, tight: false, kinds: 1, assist: false },
 	{
 		level: 4,
@@ -83,10 +83,10 @@ export const LEVELS: LevelConfig[] = [
 		kinds: 2,
 		assist: true
 	},
-	{ level: 7, min: 1, max: 12, layout: 'scatter', choices: 4, tight: true, kinds: 2, assist: true },
-	{ level: 8, min: 1, max: 15, layout: 'scatter', choices: 4, tight: true, kinds: 2, assist: true },
-	{ level: 9, min: 3, max: 18, layout: 'scatter', choices: 4, tight: true, kinds: 3, assist: true },
-	{ level: 10, min: 5, max: 20, layout: 'scatter', choices: 4, tight: true, kinds: 3, assist: true }
+	{ level: 7, min: 1, max: 12, layout: 'scatter', choices: 3, tight: true, kinds: 2, assist: true },
+	{ level: 8, min: 1, max: 15, layout: 'scatter', choices: 3, tight: true, kinds: 2, assist: true },
+	{ level: 9, min: 3, max: 18, layout: 'scatter', choices: 3, tight: true, kinds: 3, assist: true },
+	{ level: 10, min: 5, max: 20, layout: 'scatter', choices: 3, tight: true, kinds: 3, assist: true }
 ];
 
 export function getLevelConfig(level: number): LevelConfig | undefined {

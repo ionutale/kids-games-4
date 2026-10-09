@@ -35,7 +35,7 @@ describe('level table', () => {
 				min: 1,
 				max: 3,
 				layout: 'row',
-				choices: 2,
+				choices: 3,
 				tight: false,
 				kinds: 1,
 				assist: false
@@ -45,7 +45,7 @@ describe('level table', () => {
 				min: 1,
 				max: 4,
 				layout: 'row',
-				choices: 2,
+				choices: 3,
 				tight: false,
 				kinds: 1,
 				assist: false
@@ -95,7 +95,7 @@ describe('level table', () => {
 				min: 1,
 				max: 12,
 				layout: 'scatter',
-				choices: 4,
+				choices: 3,
 				tight: true,
 				kinds: 2,
 				assist: true
@@ -105,7 +105,7 @@ describe('level table', () => {
 				min: 1,
 				max: 15,
 				layout: 'scatter',
-				choices: 4,
+				choices: 3,
 				tight: true,
 				kinds: 2,
 				assist: true
@@ -115,7 +115,7 @@ describe('level table', () => {
 				min: 3,
 				max: 18,
 				layout: 'scatter',
-				choices: 4,
+				choices: 3,
 				tight: true,
 				kinds: 3,
 				assist: true
@@ -125,7 +125,7 @@ describe('level table', () => {
 				min: 5,
 				max: 20,
 				layout: 'scatter',
-				choices: 4,
+				choices: 3,
 				tight: true,
 				kinds: 3,
 				assist: true
@@ -196,6 +196,7 @@ describe('generateLevel', () => {
 describe('makeOptions', () => {
 	it('returns exactly choices unique values including correct, all in range', () => {
 		for (const config of LEVELS) {
+			expect(config.choices).toBe(3);
 			for (let correct = config.min; correct <= config.max; correct++) {
 				const options = makeOptions(config, correct, rand);
 				expect(options).toHaveLength(config.choices);
@@ -212,13 +213,13 @@ describe('makeOptions', () => {
 	it('prefers nearest neighbours on tight levels', () => {
 		const config = getLevelConfig(7)!;
 		const options = makeOptions(config, 5, rand);
-		expect(new Set(options.filter((value) => value !== 5))).toEqual(new Set([6, 4, 7]));
+		expect(new Set(options.filter((value) => value !== 5))).toEqual(new Set([6, 4]));
 	});
 
 	it('skips out-of-range neighbours on tight levels', () => {
 		const config = getLevelConfig(7)!;
 		const options = makeOptions(config, 1, rand);
-		expect(new Set(options.filter((value) => value !== 1))).toEqual(new Set([2, 3, 4]));
+		expect(new Set(options.filter((value) => value !== 1))).toEqual(new Set([2, 3]));
 	});
 });
 
