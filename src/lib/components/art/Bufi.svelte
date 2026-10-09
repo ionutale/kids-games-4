@@ -42,8 +42,8 @@
 				<circle cx="77.5" cy="51.5" r="2.2" fill="var(--cn-paper)" />
 			</g>
 			{#if pose === 'sleepy'}
-				<rect x="30" y="38" width="30" height="12" rx="6" fill="var(--cn-wood)" />
-				<rect x="60" y="38" width="30" height="12" rx="6" fill="var(--cn-wood)" />
+				<path d="M30,50 Q30,36 45,36 Q60,36 60,50 Q45,43 30,50 Z" fill="var(--cn-wood)" />
+				<path d="M60,50 Q60,36 75,36 Q90,36 90,50 Q75,43 60,50 Z" fill="var(--cn-wood)" />
 			{/if}
 		</g>
 		<!-- beak -->

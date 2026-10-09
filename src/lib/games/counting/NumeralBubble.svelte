@@ -24,7 +24,10 @@
 		border-radius: var(--cn-radius-pill);
 		background: var(--cn-wood);
 		color: var(--cn-paper);
-		box-shadow: var(--cn-shadow-1);
+		box-shadow:
+			var(--cn-shadow-1),
+			inset 0 3px 0 rgba(255, 255, 255, 0.35),
+			inset 0 -5px 0 rgba(74, 59, 47, 0.22);
 	}
 
 	.numeral {
@@ -38,6 +41,8 @@
 	.bubble--glow {
 		box-shadow:
 			var(--cn-shadow-1),
+			inset 0 3px 0 rgba(255, 255, 255, 0.35),
+			inset 0 -5px 0 rgba(74, 59, 47, 0.22),
 			0 0 0 4px var(--cn-paper),
 			0 0 18px 4px var(--cn-accent);
 	}
@@ -45,6 +50,8 @@
 	.bubble--pulse {
 		box-shadow:
 			var(--cn-shadow-1),
+			inset 0 3px 0 rgba(255, 255, 255, 0.35),
+			inset 0 -5px 0 rgba(74, 59, 47, 0.22),
 			0 0 0 5px var(--cn-paper),
 			0 0 26px 8px var(--cn-accent);
 		animation: bubble-pulse 1s var(--cn-ease) infinite;
@@ -61,6 +68,10 @@
 
 	.bubble--correct {
 		background: var(--cn-leaf);
+		box-shadow:
+			var(--cn-shadow-1),
+			inset 0 3px 0 rgba(255, 255, 255, 0.35),
+			inset 0 -5px 0 rgba(74, 59, 47, 0.22);
 		animation: bubble-pop 400ms var(--cn-ease);
 	}
 	@keyframes bubble-pop {

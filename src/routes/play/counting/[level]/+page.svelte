@@ -20,6 +20,7 @@
 	const IDLE_MS = 10000;
 	const CELEBRATE_MS = 1100;
 	const WRONG_MS = 600;
+	const MOOD_MS = 1000;
 
 	let cleared = $state(0);
 	let hasProfile = $state(false);
@@ -27,6 +28,7 @@
 	let level = $state(0);
 	let session = $state<CountingSession | null>(null);
 	let wrongValue = $state<number | null>(null);
+	let fieldMood = $state<'happy' | 'sad'>('happy');
 	let burstFor = $state<number | null>(null);
 	let savedFor = $state(0);
 	let fruitPops = $state<{ id: number; x: number; y: number }[]>([]);
@@ -35,6 +37,7 @@
 	let idleTimer = 0;
 	let celebrateTimer = 0;
 	let wrongTimer = 0;
+	let moodTimer = 0;
 
 	const paramLevel = $derived(Number.parseInt(page.params.level ?? '', 10));
 
@@ -42,9 +45,11 @@
 		if (idleTimer) window.clearTimeout(idleTimer);
 		if (celebrateTimer) window.clearTimeout(celebrateTimer);
 		if (wrongTimer) window.clearTimeout(wrongTimer);
+		if (moodTimer) window.clearTimeout(moodTimer);
 		idleTimer = 0;
 		celebrateTimer = 0;
 		wrongTimer = 0;
+		moodTimer = 0;
 	}
 
 	function armIdle(): void {
@@ -83,6 +88,7 @@
 			level = n;
 			session = createCountingSession(n);
 			wrongValue = null;
+			fieldMood = 'happy';
 			burstFor = null;
 			savedFor = 0;
 			armIdle();
@@ -160,10 +166,15 @@
 		} else {
 			audio.playSfx('wrong');
 			wrongValue = option;
+			fieldMood = 'sad';
 			if (wrongTimer) window.clearTimeout(wrongTimer);
 			wrongTimer = window.setTimeout(() => {
 				wrongValue = null;
 			}, WRONG_MS);
+			if (moodTimer) window.clearTimeout(moodTimer);
+			moodTimer = window.setTimeout(() => {
+				fieldMood = 'happy';
+			}, MOOD_MS);
 			armIdle();
 		}
 	}
@@ -179,8 +190,10 @@
 		if (!session) return;
 		if (celebrateTimer) window.clearTimeout(celebrateTimer);
 		if (wrongTimer) window.clearTimeout(wrongTimer);
+		if (moodTimer) window.clearTimeout(moodTimer);
 		session.replay();
 		wrongValue = null;
+		fieldMood = 'happy';
 		burstFor = null;
 		savedFor = 0;
 		armIdle();
@@ -207,7 +220,23 @@
 <div class="game cn-safe">
 	<header class="top">
 		<IconButton label={m.back()} size="sm" onclick={() => void goto('/play/counting')}>
-			<span class="back-arrow" aria-hidden="true">←</span>
+			<svg
+				class="back-arrow"
+				viewBox="0 0 24 24"
+				width="22"
+				height="22"
+				aria-hidden="true"
+				focusable="false"
+			>
+				<path
+					d="M14.5 5 8 12l6.5 7"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="3"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
 		</IconButton>
 		<h1>{level > 0 ? m.level({ n: level }) : ''}</h1>
 		<MuteButton size="sm" />
@@ -238,16 +267,58 @@
 		</div>
 
 		<div class="field">
+			<svg
+				class="tuft tuft--left"
+				viewBox="0 0 40 32"
+				width="56"
+				height="44"
+				aria-hidden="true"
+				focusable="false"
+			>
+				<g
+					stroke="var(--cn-leaf-dark)"
+					stroke-width="3"
+					stroke-linecap="round"
+					fill="none"
+					opacity="0.35"
+				>
+					<path d="M8 30 Q10 18 6 10" />
+					<path d="M18 30 Q19 16 16 6" />
+					<path d="M28 30 Q30 20 34 12" />
+				</g>
+			</svg>
+			<svg
+				class="tuft tuft--right"
+				viewBox="0 0 40 32"
+				width="56"
+				height="44"
+				aria-hidden="true"
+				focusable="false"
+			>
+				<g
+					stroke="var(--cn-leaf-dark)"
+					stroke-width="3"
+					stroke-linecap="round"
+					fill="none"
+					opacity="0.35"
+				>
+					<path d="M8 30 Q10 18 6 10" />
+					<path d="M18 30 Q19 16 16 6" />
+					<path d="M28 30 Q30 20 34 12" />
+				</g>
+			</svg>
 			{#each round.fruits as fruit, i (i)}
 				<button
 					type="button"
 					class="fruit-btn"
+					class:cheering={session.phase === 'celebrating'}
 					style="left: {fruit.x}%; top: {fruit.y}%; --tilt: {fruit.tilt}deg; animation-delay: {i *
 						120}ms;"
 					aria-label={m.tap_number()}
 					onclick={() => tapFruit(i, fruit.x, fruit.y)}
 				>
-					<Fruit kind={fruit.kind} size={Math.round(64 * fruit.size)} />
+					<span class="fruit-shadow" aria-hidden="true"></span>
+					<Fruit kind={fruit.kind} size={Math.round(64 * fruit.size)} mood={fieldMood} />
 					{#if session.assist && tickNumber(i) > 0}
 						<span class="tick" aria-hidden="true">{tickNumber(i)}</span>
 					{/if}
@@ -313,8 +384,7 @@
 	}
 
 	.back-arrow {
-		font-size: 1.4rem;
-		line-height: 1;
+		display: block;
 	}
 
 	.dots {
@@ -368,10 +438,38 @@
 		height: 55dvh;
 		min-height: 280px;
 		border-radius: var(--cn-radius);
-		background: var(--cn-sky-2);
+		background: linear-gradient(180deg, var(--cn-sky-2) 0%, var(--cn-paper) 78%);
 		border: 2px solid var(--cn-border);
 		overflow: hidden;
 		touch-action: manipulation;
+	}
+
+	.field::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 26%;
+		background: linear-gradient(180deg, rgba(127, 166, 83, 0) 0%, rgba(127, 166, 83, 0.18) 100%);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.tuft {
+		position: absolute;
+		bottom: 4px;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.tuft--left {
+		left: 6px;
+	}
+
+	.tuft--right {
+		right: 6px;
+		transform: scaleX(-1);
 	}
 
 	.fruit-btn {
@@ -383,6 +481,23 @@
 		justify-content: center;
 		transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
 		animation: fruit-bob 2.4s ease-in-out infinite;
+		z-index: 1;
+	}
+
+	.fruit-btn.cheering {
+		animation: fruit-cheer 0.55s var(--cn-ease) infinite;
+	}
+
+	.fruit-shadow {
+		position: absolute;
+		left: 50%;
+		bottom: 2px;
+		width: 70%;
+		height: 10px;
+		transform: translateX(-50%);
+		border-radius: 50%;
+		background: rgba(74, 59, 47, 0.16);
+		pointer-events: none;
 	}
 
 	.fruit-btn:active {
@@ -396,6 +511,19 @@
 		}
 		50% {
 			margin-top: -6px;
+		}
+	}
+
+	@keyframes fruit-cheer {
+		0%,
+		100% {
+			margin-top: 0;
+		}
+		35% {
+			margin-top: -14px;
+		}
+		60% {
+			margin-top: 0;
 		}
 	}
 

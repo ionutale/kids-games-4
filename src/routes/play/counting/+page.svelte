@@ -54,7 +54,23 @@
 <div class="map cn-safe">
 	<header class="top">
 		<IconButton label={m.back()} onclick={() => void goto('/')}>
-			<span class="back-arrow" aria-hidden="true">←</span>
+			<svg
+				class="back-arrow"
+				viewBox="0 0 24 24"
+				width="22"
+				height="22"
+				aria-hidden="true"
+				focusable="false"
+			>
+				<path
+					d="M14.5 5 8 12l6.5 7"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="3"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
 		</IconButton>
 		<div class="titles">
 			<h1>{m.game_counting_name()}</h1>
@@ -157,8 +173,7 @@
 	}
 
 	.back-arrow {
-		font-size: 1.5rem;
-		line-height: 1;
+		display: block;
 	}
 
 	.choose {
