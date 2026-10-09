@@ -485,6 +485,26 @@
 		box-shadow: var(--cn-shadow-1);
 		color: inherit;
 		text-decoration: none;
+		animation: cn-tile-in 460ms var(--cn-ease-overshoot) backwards;
+	}
+
+	/* Staggered arrivals, Wurstel-style: each tile lands a beat after the last. */
+	.games > :nth-child(2) {
+		animation-delay: var(--cn-stagger);
+	}
+	.games > :nth-child(3) {
+		animation-delay: calc(var(--cn-stagger) * 2);
+	}
+
+	@keyframes cn-tile-in {
+		from {
+			opacity: 0;
+			transform: translateY(18px) scale(0.97);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
 	}
 
 	.tile.soon {
@@ -497,7 +517,7 @@
 		line-height: 0;
 		padding: var(--cn-space-1);
 		border-radius: var(--cn-radius-sm);
-		background: rgba(127, 166, 83, 0.14);
+		background: rgba(116, 167, 47, 0.16);
 	}
 
 	.tile-text {
@@ -533,5 +553,8 @@
 		color: var(--cn-paper);
 		font-family: var(--cn-font-display);
 		font-size: var(--cn-text-sm);
+		box-shadow:
+			inset 0 2px 0 rgba(255, 255, 255, 0.35),
+			0 3px 0 rgba(74, 59, 47, 0.18);
 	}
 </style>

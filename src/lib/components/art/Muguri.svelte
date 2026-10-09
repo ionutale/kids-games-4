@@ -17,34 +17,34 @@
 	<svg viewBox="0 0 120 120" width={size} height={size} role="presentation" focusable="false">
 		<!-- leafy sprigs on top (the character's hands/ears) -->
 		<g class="muguri-leaf muguri-leaf--left">
-			<path d="M60 30 C48 28 36 20 32 8 C46 8 58 16 60 30 Z" fill="#7fa653" />
+			<path d="M60 30 C48 28 36 20 32 8 C46 8 58 16 60 30 Z" fill="#74a72f" />
 			<path
 				d="M58 28 C50 22 42 16 36 10"
-				stroke="#5f823c"
+				stroke="#527d1e"
 				stroke-width="2"
 				fill="none"
 				stroke-linecap="round"
 			/>
 		</g>
 		<g class="muguri-leaf muguri-leaf--right">
-			<path d="M60 30 C72 28 84 20 88 8 C74 8 62 16 60 30 Z" fill="#7fa653" />
+			<path d="M60 30 C72 28 84 20 88 8 C74 8 62 16 60 30 Z" fill="#74a72f" />
 			<path
 				d="M62 28 C70 22 78 16 84 10"
-				stroke="#5f823c"
+				stroke="#527d1e"
 				stroke-width="2"
 				fill="none"
 				stroke-linecap="round"
 			/>
 		</g>
 		<!-- stem -->
-		<rect x="57" y="22" width="6" height="16" rx="3" fill="#5f823c" />
+		<rect x="57" y="22" width="6" height="16" rx="3" fill="#527d1e" />
 		<!-- seed body -->
 		<ellipse cx="60" cy="72" rx="36" ry="34" fill="#fdf6e9" stroke="#8c6242" stroke-width="4" />
 		<!-- soft belly shading -->
-		<ellipse cx="60" cy="86" rx="22" ry="16" fill="#f6ead5" />
+		<ellipse cx="60" cy="86" rx="22" ry="16" fill="#f9ecd2" />
 		<!-- cheeks -->
-		<circle cx="38" cy="74" r="5" fill="#b0577a" opacity="0.55" />
-		<circle cx="82" cy="74" r="5" fill="#b0577a" opacity="0.55" />
+		<circle cx="38" cy="74" r="5" fill="#c64f78" opacity="0.55" />
+		<circle cx="82" cy="74" r="5" fill="#c64f78" opacity="0.55" />
 		<!-- face -->
 		<g class="muguri-eyes">
 			{#if pose === 'sleepy'}
@@ -138,12 +138,12 @@
 		}
 	}
 
-	/* hint: right leaf raised like a hand, slight lean */
+	/* hint: right leaf raised like a hand, slight lean + an overshoot wave */
 	.muguri--hint svg {
 		animation: muguri-lean 2.2s ease-in-out infinite;
 	}
 	.muguri--hint .muguri-leaf--right {
-		animation: muguri-leaf-raise 2.2s ease-in-out infinite;
+		animation: muguri-leaf-raise 2.2s var(--cn-ease-overshoot) infinite;
 	}
 	@keyframes muguri-lean {
 		0%,
@@ -159,40 +159,50 @@
 		100% {
 			transform: rotate(0deg) translateY(0);
 		}
-		50% {
-			transform: rotate(-32deg) translateY(-6px);
+		45% {
+			transform: rotate(-38deg) translateY(-8px);
+		}
+		70% {
+			transform: rotate(-28deg) translateY(-5px);
 		}
 	}
 
-	/* cheer: both leaves up + happy hop */
+	/* cheer: both leaves up + a squash-and-stretch hop with real overshoot */
 	.muguri--cheer svg {
-		animation: muguri-hop 0.9s var(--cn-ease) infinite;
+		transform-origin: 50% 100%;
+		animation: muguri-hop 1s var(--cn-ease-overshoot) infinite;
 	}
 	.muguri--cheer .muguri-leaf {
-		animation: muguri-leaves-up 0.9s ease-in-out infinite;
+		animation: muguri-leaves-up 1s var(--cn-ease-overshoot) infinite;
 	}
 	@keyframes muguri-hop {
 		0%,
 		100% {
-			transform: translateY(0) scale(1);
+			transform: translateY(0) scale(1, 1);
 		}
-		30% {
-			transform: translateY(-10px) scale(1.03);
+		15% {
+			transform: translateY(2px) scale(1.08, 0.9);
 		}
-		60% {
-			transform: translateY(0) scale(0.98);
+		40% {
+			transform: translateY(-14px) scale(0.94, 1.1);
+		}
+		62% {
+			transform: translateY(0) scale(1.06, 0.92);
+		}
+		80% {
+			transform: translateY(-3px) scale(0.98, 1.02);
 		}
 	}
 	@keyframes muguri-leaves-up {
 		0%,
 		100% {
-			transform: rotate(0deg);
+			transform: rotate(0deg) scaleY(1);
 		}
-		30% {
-			transform: translateY(-6px) scaleY(1.15);
+		40% {
+			transform: translateY(-8px) scaleY(1.22) rotate(-6deg);
 		}
-		60% {
-			transform: rotate(0deg) translateY(0);
+		70% {
+			transform: translateY(-2px) scaleY(1.04) rotate(0deg);
 		}
 	}
 	.muguri--cheer .muguri-leaf--left {

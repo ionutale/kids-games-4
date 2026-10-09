@@ -37,6 +37,16 @@
 		font-weight: 700;
 		line-height: 1;
 		color: var(--cn-paper);
+		animation: numeral-idle 2.8s ease-in-out infinite;
+	}
+	@keyframes numeral-idle {
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.03);
+		}
 	}
 
 	.bubble--glow {
@@ -73,17 +83,20 @@
 			var(--cn-shadow-1),
 			inset 0 3px 0 rgba(255, 255, 255, 0.35),
 			inset 0 -5px 0 rgba(74, 59, 47, 0.22);
-		animation: bubble-pop 400ms var(--cn-ease);
+		animation: bubble-pop var(--cn-t-pop) var(--cn-ease-overshoot) both;
 	}
 	@keyframes bubble-pop {
 		0% {
 			transform: scale(1);
 		}
-		40% {
-			transform: scale(1.18);
+		30% {
+			transform: scale(0.88);
+		}
+		65% {
+			transform: scale(1.16);
 		}
 		100% {
-			transform: scale(1.05);
+			transform: scale(1.06);
 		}
 	}
 

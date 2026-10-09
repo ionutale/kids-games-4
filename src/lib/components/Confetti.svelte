@@ -13,7 +13,7 @@
 	let { active, pieces = 90, onDone }: ConfettiProps = $props();
 
 	// Same hexes as the --cn-* tokens; canvas 2d can't read CSS vars.
-	const PALETTE = ['#e08a3c', '#7fa653', '#b0577a', '#f0b34e', '#bfe3e0', '#c9752c', '#5f823c'];
+	const PALETTE = ['#e8871f', '#74a72f', '#c64f78', '#f5b73c', '#a6e0d8', '#c4661a', '#527d1e'];
 
 	const DURATION = 2600;
 	const FADE = 500;

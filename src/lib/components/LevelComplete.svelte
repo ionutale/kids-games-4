@@ -66,7 +66,7 @@
 		border-radius: var(--cn-radius);
 		box-shadow: var(--cn-shadow-2);
 		text-align: center;
-		animation: cn-pop var(--cn-t-med) var(--cn-ease);
+		animation: cn-card-in var(--cn-t-arrive) var(--cn-ease-overshoot) both;
 	}
 
 	.level {
@@ -82,6 +82,7 @@
 		border-radius: var(--cn-radius-pill);
 		font-size: var(--cn-text-xs);
 		font-weight: 700;
+		animation: cn-pill-in 460ms var(--cn-ease-overshoot) 160ms both;
 	}
 
 	.cheer {
@@ -96,6 +97,7 @@
 		gap: var(--cn-space-3);
 		width: 100%;
 		margin-top: var(--cn-space-2);
+		animation: cn-rise 420ms var(--cn-ease-snap) 220ms both;
 	}
 
 	.btn {
@@ -122,14 +124,39 @@
 		box-shadow: none;
 	}
 
-	@keyframes cn-pop {
+	@keyframes cn-card-in {
 		from {
-			transform: scale(0.8) translateY(12px);
 			opacity: 0;
+			transform: scale(0.8) translateY(16px);
+		}
+		62% {
+			opacity: 1;
+			transform: scale(1.03) translateY(-3px);
 		}
 		to {
-			transform: none;
+			transform: scale(1) translateY(0);
+		}
+	}
+
+	@keyframes cn-pill-in {
+		from {
+			opacity: 0;
+			transform: scale(0.4) rotate(-8deg);
+		}
+		to {
 			opacity: 1;
+			transform: scale(1) rotate(0deg);
+		}
+	}
+
+	@keyframes cn-rise {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
 		}
 	}
 </style>

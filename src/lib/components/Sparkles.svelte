@@ -15,10 +15,10 @@
 	let { x, y, count = 8, onDone }: SparklesProps = $props();
 
 	// Same hexes as the --cn-* tokens.
-	const PALETTE = ['#f0b34e', '#e08a3c', '#b0577a', '#7fa653', '#bfe3e0'];
+	const PALETTE = ['#f5b73c', '#e8871f', '#c64f78', '#74a72f', '#a6e0d8'];
 
-	const DURATION = 700;
-	const FADE_DURATION = 200;
+	const DURATION = 560;
+	const FADE_DURATION = 180;
 
 	interface Pip {
 		tx: number;
@@ -90,11 +90,11 @@
 		position: absolute;
 		left: 0;
 		top: 0;
-		animation: cn-burst 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+		animation: cn-burst 560ms cubic-bezier(0.22, 1.25, 0.36, 1) forwards;
 	}
 
 	.fading {
-		animation: cn-fade 200ms ease-out forwards;
+		animation: cn-fade 180ms ease-out forwards;
 	}
 
 	.fading .pip {

@@ -1,20 +1,20 @@
 /* Design tokens — binding values for Cozy Nook. Every later task consumes these. */
 :root {
 	--cn-paper: #fdf6e9;
-	--cn-paper-2: #f6ead5;
-	--cn-paper-3: #efe0c8;
+	--cn-paper-2: #f9ecd2;
+	--cn-paper-3: #f1dcbd;
 	--cn-ink: #4a3b2f;
 	--cn-ink-soft: #7d6c58;
 	--cn-border: #e3d3b7;
-	--cn-accent: #e08a3c;
-	--cn-accent-dark: #c9752c;
-	--cn-leaf: #7fa653;
-	--cn-leaf-dark: #5f823c;
-	--cn-berry: #b0577a;
+	--cn-accent: #e8871f;
+	--cn-accent-dark: #c4661a;
+	--cn-leaf: #74a72f;
+	--cn-leaf-dark: #527d1e;
+	--cn-berry: #c64f78;
 	--cn-wood: #8c6242;
-	--cn-gold: #f0b34e;
-	--cn-sky: #bfe3e0;
-	--cn-sky-2: #e6f4f2;
+	--cn-gold: #f5b73c;
+	--cn-sky: #a6e0d8;
+	--cn-sky-2: #e3f6f1;
 	--cn-radius: 20px;
 	--cn-radius-sm: 12px;
 	--cn-radius-pill: 999px;
@@ -37,6 +37,14 @@
 	--cn-t-med: 280ms;
 	--cn-t-slow: 600ms;
 	--cn-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+	/* Motion tokens (Wurstel-sourced). press = fast; pop/arrive = med..480ms;
+	   overshoot = the "boing" on arrivals; snap = quick transforms;
+	   stagger = per-item animation-delay choreography. */
+	--cn-ease-overshoot: cubic-bezier(0.2, 1.5, 0.4, 1);
+	--cn-ease-snap: cubic-bezier(0.18, 0.85, 0.32, 1.05);
+	--cn-t-arrive: 480ms;
+	--cn-t-pop: 440ms;
+	--cn-stagger: 90ms;
 	--cn-safe-top: env(safe-area-inset-top, 0px);
 	--cn-safe-bottom: env(safe-area-inset-bottom, 0px);
 	--cn-safe-x: env(safe-area-inset-left, 0px);

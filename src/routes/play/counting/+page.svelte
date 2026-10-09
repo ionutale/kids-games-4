@@ -217,21 +217,27 @@
 		box-shadow: var(--cn-shadow-1);
 		font-family: var(--cn-font-display);
 		font-size: var(--cn-text-lg);
+		transition: transform var(--cn-t-fast) var(--cn-ease-overshoot);
 	}
 
 	.tile:not(.locked):not(.done) {
 		border-color: var(--cn-leaf-dark);
+		background: linear-gradient(180deg, var(--cn-sky-2) 0%, var(--cn-paper) 100%);
+		box-shadow:
+			var(--cn-shadow-1),
+			0 0 16px rgba(166, 224, 216, 0.5);
 	}
 
 	.tile.done {
-		background: var(--cn-leaf);
+		background: linear-gradient(180deg, var(--cn-leaf) 0%, var(--cn-leaf-dark) 140%);
 		border-color: var(--cn-leaf-dark);
 		color: #fff;
 	}
 
 	.tile.locked {
-		opacity: 0.75;
+		opacity: 0.82;
 		color: var(--cn-ink-soft);
+		background: var(--cn-paper-3);
 	}
 
 	.num {
@@ -258,6 +264,29 @@
 		font-family: var(--cn-font-body);
 		font-size: var(--cn-text-xs);
 		font-weight: 800;
+		box-shadow: var(--cn-shadow-1);
+		animation:
+			cn-pill-pop 520ms var(--cn-ease-overshoot) both,
+			cn-pill-bob 2.6s ease-in-out 520ms infinite;
+	}
+	@keyframes cn-pill-pop {
+		from {
+			opacity: 0;
+			transform: scale(0.3) rotate(-10deg);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1) rotate(0deg);
+		}
+	}
+	@keyframes cn-pill-bob {
+		0%,
+		100% {
+			transform: translateY(0) rotate(0deg);
+		}
+		50% {
+			transform: translateY(-3px) rotate(-4deg);
+		}
 	}
 
 	.wiggle {

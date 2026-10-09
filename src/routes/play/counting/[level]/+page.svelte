@@ -468,13 +468,46 @@
 		border-radius: var(--cn-radius);
 		background: linear-gradient(
 			180deg,
-			var(--cn-sky-2) 0%,
-			var(--cn-paper) 72%,
-			rgba(127, 166, 83, 0.12) 100%
+			var(--cn-sky) 0%,
+			var(--cn-sky-2) 32%,
+			var(--cn-paper) 76%,
+			rgba(116, 167, 47, 0.16) 100%
 		);
 		border: 2px solid var(--cn-border);
 		overflow: hidden;
 		touch-action: manipulation;
+	}
+
+	/* Ambient garden light: a slow, warm breathing wash over the top edge only.
+	   Decorative and non-countable — a soft gradient, no shapes — kept faint and
+	   killed by the global reduced-motion switch. */
+	.field::before {
+		content: '';
+		position: absolute;
+		left: -10%;
+		right: -10%;
+		top: -30%;
+		height: 70%;
+		background: radial-gradient(
+			60% 70% at 50% 100%,
+			rgba(255, 236, 170, 0.4) 0%,
+			rgba(255, 236, 170, 0) 70%
+		);
+		pointer-events: none;
+		z-index: 0;
+		animation: field-breathe 9s ease-in-out infinite;
+	}
+
+	@keyframes field-breathe {
+		0%,
+		100% {
+			opacity: 0.5;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.9;
+			transform: scale(1.06);
+		}
 	}
 
 	.field::after {
@@ -484,7 +517,7 @@
 		right: 0;
 		bottom: 0;
 		height: 26%;
-		background: linear-gradient(180deg, rgba(127, 166, 83, 0) 0%, rgba(127, 166, 83, 0.25) 100%);
+		background: linear-gradient(180deg, rgba(116, 167, 47, 0) 0%, rgba(116, 167, 47, 0.28) 100%);
 		pointer-events: none;
 		z-index: 0;
 	}
@@ -525,6 +558,7 @@
 		align-items: center;
 		justify-content: center;
 		transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
+		transition: transform 180ms var(--cn-ease-overshoot);
 		animation: fruit-bob 2.4s ease-in-out infinite;
 		z-index: 1;
 	}
@@ -546,7 +580,7 @@
 	}
 
 	.fruit-btn:active {
-		transform: translate(-50%, -50%) rotate(var(--tilt, 0deg)) scale(0.92);
+		transform: translate(-50%, -50%) rotate(var(--tilt, 0deg)) scale(0.86, 0.92);
 	}
 
 	@keyframes fruit-bob {
