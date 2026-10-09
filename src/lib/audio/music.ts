@@ -62,13 +62,13 @@ export interface MusicHandle {
 const MUSIC_LEVEL = 0.6; // the tune sits under the engine's 0.22 master
 
 // Tempo: `home` is the slow morning; `game` is the same tune a touch brighter and quicker.
-const SCENE_TEMPO: Record<MusicScene, number> = { home: 94, game: 108 };
+const SCENE_TEMPO: Record<MusicScene, number> = { home: 104, game: 118 };
 
 // Melody: the marimba that carries the tune. A 12 ms attack, a bell-ish decay and one soft
 // partial two octaves up — a music box, not a synth lead.
 const MELODY_PEAK = 0.22;
 const MELODY_ATTACK_S = 0.012;
-const MELODY_DECAY_S = 0.42;
+const MELODY_DECAY_S = 0.34;
 const MELODY_HELD_DECAY_S = 0.9; // phrase endings ring out instead of ticking on
 const MELODY_PARTIAL_GAIN = 0.14; // the one upper partial: music-box shimmer, never a whine
 const MELODY_FILTER_HZ = 2400; // the one place the tune is kept from ever piercing
@@ -85,11 +85,11 @@ const BASS_DECAY_S = 0.5;
 
 // Pulse: never above 0.05, and the quietest layer here on purpose. A tick on the beat, a
 // shaker off it — that alternation is the bounce of the whole piece.
-const WOOD_PEAK = 0.035;
+const WOOD_PEAK = 0.05;
 const WOOD_HZ = 740;
 const WOOD_ATTACK_S = 0.006;
 const WOOD_DECAY_S = 0.05;
-const SHAKER_PEAK = 0.03;
+const SHAKER_PEAK = 0.045;
 const SHAKER_HZ = 6200;
 const SHAKER_Q = 1.1;
 const SHAKER_ATTACK_S = 0.004;
