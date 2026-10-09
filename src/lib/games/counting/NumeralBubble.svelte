@@ -23,12 +23,12 @@
 		padding: var(--cn-space-2) var(--cn-space-4);
 		border: 2px solid var(--cn-leaf-dark);
 		border-radius: var(--cn-radius-pill);
-		background: var(--cn-wood);
-		color: var(--cn-paper);
+		background: linear-gradient(180deg, var(--cn-paper) 0%, var(--cn-paper-2) 100%);
+		color: var(--cn-ink);
 		box-shadow:
 			var(--cn-shadow-1),
-			inset 0 3px 0 rgba(255, 255, 255, 0.35),
-			inset 0 -5px 0 rgba(74, 59, 47, 0.22);
+			inset 0 3px 0 rgba(255, 255, 255, 0.6),
+			inset 0 -4px 0 rgba(74, 59, 47, 0.1);
 	}
 
 	.numeral {
@@ -36,7 +36,7 @@
 		font-size: var(--cn-text-lg);
 		font-weight: 700;
 		line-height: 1;
-		color: var(--cn-paper);
+		color: inherit;
 		animation: numeral-idle 2.8s ease-in-out infinite;
 	}
 	@keyframes numeral-idle {
@@ -52,8 +52,8 @@
 	.bubble--glow {
 		box-shadow:
 			var(--cn-shadow-1),
-			inset 0 3px 0 rgba(255, 255, 255, 0.35),
-			inset 0 -5px 0 rgba(74, 59, 47, 0.22),
+			inset 0 3px 0 rgba(255, 255, 255, 0.6),
+			inset 0 -4px 0 rgba(74, 59, 47, 0.1),
 			0 0 0 4px var(--cn-paper),
 			0 0 18px 4px var(--cn-accent);
 	}
@@ -61,8 +61,8 @@
 	.bubble--pulse {
 		box-shadow:
 			var(--cn-shadow-1),
-			inset 0 3px 0 rgba(255, 255, 255, 0.35),
-			inset 0 -5px 0 rgba(74, 59, 47, 0.22),
+			inset 0 3px 0 rgba(255, 255, 255, 0.6),
+			inset 0 -4px 0 rgba(74, 59, 47, 0.1),
 			0 0 0 5px var(--cn-paper),
 			0 0 26px 8px var(--cn-accent);
 		animation: bubble-pulse 1s var(--cn-ease) infinite;
@@ -78,7 +78,8 @@
 	}
 
 	.bubble--correct {
-		background: var(--cn-leaf);
+		background: linear-gradient(180deg, var(--cn-leaf) 0%, var(--cn-leaf-dark) 100%);
+		color: var(--cn-paper);
 		box-shadow:
 			var(--cn-shadow-1),
 			inset 0 3px 0 rgba(255, 255, 255, 0.35),
