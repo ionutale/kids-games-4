@@ -62,11 +62,11 @@ export interface MusicHandle {
 const MUSIC_LEVEL = 0.6; // the tune sits under the engine's 0.22 master
 
 // Tempo: `home` is the slow morning; `game` is the same tune a touch brighter and quicker.
-const SCENE_TEMPO: Record<MusicScene, number> = { home: 96, game: 110 };
+const SCENE_TEMPO: Record<MusicScene, number> = { home: 96, game: 103 };
 
 // Melody: the marimba that carries the tune. A 12 ms attack, a bell-ish decay and one soft
 // partial two octaves up — a music box, not a synth lead.
-const MELODY_PEAK = 0.22;
+const MELODY_PEAK = 0.17;
 const MELODY_ATTACK_S = 0.012;
 const MELODY_DECAY_S = 0.34;
 const MELODY_HELD_DECAY_S = 0.9; // phrase endings ring out instead of ticking on
