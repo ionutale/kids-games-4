@@ -1,0 +1,33 @@
+<!-- Cozy Nook app icon: paper rounded square with Muguri's face. `scripts/generate-icons.mjs`
+     rasterizes it, so it must stay self-contained (no CSS variables) and must keep the
+     rounded-square background rect and the glyph group around the sprout, which the
+     maskable and Apple variants rewrite by exact markup. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+	<rect x="0" y="0" width="512" height="512" rx="112" fill="#fdf6e9" />
+	<g id="glyph">
+		<!-- leafy sprigs -->
+		<path d="M256 168 C216 160 180 132 170 92 C214 92 250 116 256 168 Z" fill="#74a72f" />
+		<path d="M256 168 C296 160 332 132 342 92 C298 92 262 116 256 168 Z" fill="#74a72f" />
+		<path d="M250 162 C228 144 206 124 188 104" stroke="#527d1e" stroke-width="9" fill="none" stroke-linecap="round" />
+		<path d="M262 162 C284 144 306 124 324 104" stroke="#527d1e" stroke-width="9" fill="none" stroke-linecap="round" />
+		<!-- stem -->
+		<rect x="244" y="140" width="24" height="52" rx="12" fill="#527d1e" />
+		<!-- seed body -->
+		<ellipse cx="256" cy="320" rx="132" ry="124" fill="#fdf6e9" stroke="#8c6242" stroke-width="16" />
+		<!-- belly shading -->
+		<ellipse cx="256" cy="372" rx="80" ry="56" fill="#f9ecd2" />
+		<!-- cheeks -->
+		<circle cx="172" cy="330" r="18" fill="#c64f78" opacity="0.55" />
+		<circle cx="340" cy="330" r="18" fill="#c64f78" opacity="0.55" />
+		<!-- eyes -->
+		<circle cx="216" cy="306" r="17" fill="#4a3b2f" />
+		<circle cx="296" cy="306" r="17" fill="#4a3b2f" />
+		<circle cx="222" cy="300" r="6" fill="#fdf6e9" />
+		<circle cx="302" cy="300" r="6" fill="#fdf6e9" />
+		<!-- smile -->
+		<path d="M228 342 Q256 366 284 342" stroke="#4a3b2f" stroke-width="11" fill="none" stroke-linecap="round" />
+		<!-- root feet -->
+		<path d="M216 438 Q210 456 188 456" stroke="#8c6242" stroke-width="14" fill="none" stroke-linecap="round" />
+		<path d="M296 438 Q302 456 324 456" stroke="#8c6242" stroke-width="14" fill="none" stroke-linecap="round" />
+	</g>
+</svg>

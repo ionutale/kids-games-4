@@ -4,7 +4,7 @@
 
 **Goal:** Ship the Cozy Nook base (shell, profiles, procedural audio, PWA) plus the complete Counting game with ten levels, hints, and celebrations.
 
-**Architecture:** Static SPA (SvelteKit 3 + Svelte 5 runes, adapter-static fallback `index.html`), all services client-side in `$lib` (pure, unit-tested modules behind thin Svelte views), Paraglide i18n (it/ro/en/de), hand-rolled service worker precaching the whole app.
+**Architecture:** Static SPA (SvelteKit 3 + Svelte 5 runes, adapter-static fallback `index.html`), all services client-side in `#lib` (pure, unit-tested modules behind thin Svelte views), Paraglide i18n (it/ro/en/de), hand-rolled service worker precaching the whole app.
 
 **Tech Stack:** SvelteKit 3 · Svelte 5 (runes) · TypeScript strict · Vite 8 · Vitest 4 · pnpm · adapter-static · @inlang/paraglide-js · @fontsource (Baloo 2 + Nunito) · @resvg/resvg-js (dev-only, icon rasterization).
 
@@ -15,7 +15,7 @@
 - Node ≥ 26. **pnpm only** (never npm). `.npmrc` has `engine-strict=true`.
 - Svelte 5 **runes mode** everywhere; use `$props()`, `$state()`, `$derived()`, `$effect()`, `onclick`, snippets. No legacy event syntax (`on:click`). No `svelte:` stores.
 - SPA: `ssr = false`, `prerender = false`, adapter fallback `index.html`.
-- Everything imports from `$lib` (`import ... from '$lib/...'`); messages via `import * as m from '$lib/paraglide/messages'`.
+- Everything imports via the package `imports` map with explicit file extensions: `#lib/<path>.js` (SvelteKit 3 **removed** `$lib` — importing it is a build error; never use it). Messages: named import `{ m }` from `#lib/paraglide/messages.js`; locale helpers from `#lib/paraglide/runtime.js`; components as `#lib/components/<name>.svelte`.
 - **User-visible strings only via Paraglide messages** (after Task 6). No hardcoded copy. Placeholders `{n}`, `{done}`, `{count}` must survive translation.
 - **No network requests at runtime.** No analytics. localStorage is the only persistence.
 - **Art:** HTML/CSS/SVG only; canvas only for confetti/particles. No raster in-app; only PWA icon PNGs (Task 9).
@@ -40,14 +40,16 @@
 ### Task 1: Project scaffold & tooling
 
 **Files:**
+
 - Create: `package.json`, `vite.config.ts`, `tsconfig.json`, `.npmrc`, `.gitignore`, `.prettierignore`, `prettier.config.js`
 - Create: `src/app.html`, `src/app.d.ts`, `src/app.css`, `src/lib/index.ts`, `src/hooks.ts`, `src/hooks.server.ts`
 - Create: `src/routes/+layout.ts`, `src/routes/+layout.svelte`, `src/routes/+page.svelte`
 - Create: `static/favicon.svg`, `project.inlang/settings.json`, `messages/{it,ro,en,de}.json`
 
 **Interfaces:**
+
 - Consumes: nothing (first task).
-- Produces: working SvelteKit 3 static build; `$lib/paraglide/messages` (all tasks); `$lib` alias; vitest runner; `pnpm` scripts `dev/build/preview/check/test/icons`.
+- Produces: working SvelteKit 3 static build; `#lib/paraglide/messages.js` (all tasks); the `#lib` imports map; vitest runner; `pnpm` scripts `dev/build/preview/check/test/icons`.
 
 - [ ] **Step 1: package.json.** `"name": "cozy-nook"`, `"private": true`, `"type": "module"`, `"engines": {"node": ">=26"}`. Scripts: `dev: vite dev`, `build: vite build`, `preview: vite preview`, `prepare: svelte-kit sync || echo ''`, `check: svelte-kit sync && svelte-check --tsconfig ./tsconfig.json`, `test: vitest run --passWithNoTests`, `test:unit: vitest`, `lint: prettier --check .`, `format: prettier --write .`, `icons: node scripts/generate-icons.mjs`. Deps: `@fontsource/baloo-2`, `@fontsource/nunito`. DevDeps (versions mirror kids-games-3/package.json exactly): `@inlang/paraglide-js`, `@sveltejs/adapter-static`, `@sveltejs/kit`, `@sveltejs/vite-plugin-svelte`, `@types/node`, `@resvg/resvg-js`, `prettier`, `prettier-plugin-svelte`, `svelte`, `svelte-check`, `typescript`, `vite`, `vitest`. `imports`: `{"#lib": "./src/lib/index.js", "#lib/*": "./src/lib/*"}`.
 - [ ] **Step 2: vite.config.ts.** Mirror kids-games-3/vite.config.ts EXACTLY in shape: `sveltekit({ compilerOptions: { runes: (…) => node_modules ? undefined : true }, adapter: adapter({ fallback: 'index.html' }) })` + `paraglideVitePlugin({ project: './project.inlang', outdir: './src/lib/paraglide', emitTsDeclarations: true, strategy: ['url','cookie','preferredLanguage','baseLocale'], urlPatterns: [{ pattern: '/:path(.*)?', localized: [['it','/it/:path(.*)?'],['ro','/ro/:path(.*)?'],['en','/en/:path(.*)?'],['de','/de/:path(.*)?']] }] })` + vitest `test` block (node env, `expect.requireAssertions: true`, include `src/**/*.{test,spec}.{js,ts}`, exclude `src/**/*.svelte.{test,spec}.{js,ts}`).
@@ -60,10 +62,12 @@
 ### Task 2: Design tokens & base styles
 
 **Files:**
+
 - Create: `src/lib/styles/tokens.css`, `src/lib/styles/base.css`
 - Modify: `src/app.css` (replace placeholder with the two imports)
 
 **Interfaces:**
+
 - Consumes: Task 1 build.
 - Produces: every `--cn-*` token (below) for all later tasks; global base styles incl. reduced-motion and fonts.
 
@@ -75,9 +79,11 @@
 ### Task 3: Save data — profiles, progress, settings
 
 **Files:**
+
 - Create: `src/lib/storage/save.ts`, `src/lib/storage/save.test.ts`
 
 **Interfaces:**
+
 - Consumes: Task 1.
 - Produces (exact, consumed by Tasks 8, 9, 11, 12):
   - `type AvatarId = 'owl'|'fox'|'bear'|'bunny'|'cat'|'hedgehog'`
@@ -100,9 +106,11 @@
 ### Task 4: Procedural audio engine
 
 **Files:**
+
 - Create: `src/lib/audio/synth.ts`, `src/lib/audio/synth.test.ts`, `src/lib/audio/music.ts`, `src/lib/audio/sfx.ts`, `src/lib/audio/engine.ts`, `src/lib/audio/index.ts`
 
 **Interfaces:**
+
 - Consumes: Task 1. (Read `cozy-jigsaw/src/audio/engine.ts` and `cozy-forest-village/src/audio/index.ts` for proven WebAudio patterns.)
 - Produces (exact, consumed by Tasks 8, 11, 12):
   - `type SfxName = 'tap'|'correct'|'wrong'|'hint'|'unlock'|'celebrate'|'ui'`
@@ -115,15 +123,17 @@
 - [ ] **Step 3: `sfx.ts`** — soft recipes, master bus param `ctx` + `destination`; every sound ≤ 900ms, gentle tones (sine/triangle), no harsh attack: tap (sine 660Hz, 120ms exp decay); correct (triangle E5→A5, two 150ms notes); wrong (sine 233→208Hz glide, 300ms, quiet ~0.15); hint (sine 880 + 1320Hz, 400ms); unlock (triangle 523→659→784, 150ms each); celebrate (triangle arpeggio C5-E5-G5-C6 + soft shimmer); ui (sine 740Hz, 80ms).
 - [ ] **Step 4: `music.ts`** — generative calm loop: warm pad (2–3 detuned triangle voices, lowpass ~700Hz, slow LFO), `CHORDS` progression every 8s, sparse pentatonic plucks every 3–7s (seeded `mulberry32`, gain ≤ 0.12, decay ~1.2s, gentle feedback delay), soft noise wind (lowpass ~300Hz, gain ~0.03). `home` scene includes the wind bed; `game` scene skips it and is slightly brighter. Scene crossfade ~500ms.
 - [ ] **Step 5: `engine.ts` + `index.ts`** — lazy `AudioContext` creation ONLY inside `unlock()` (resume on gesture); master gain 0.22; `playSfx` before unlock or when muted → no-op; `setMuted` ramps master gain (0 ↔ 0.22) and stops/starts nothing; all `AudioContext`/`window` references guarded (`typeof AudioContext === 'undefined'` → fully inert singleton).
-- [ ] **Step 6: verify.** `pnpm check`, `pnpm test`, `pnpm build` pass. Importing `$lib/audio` in test/node must not throw (tests import `synth.ts` only).
+- [ ] **Step 6: verify.** `pnpm check`, `pnpm test`, `pnpm build` pass. Importing `#lib/audio/index.js` in test/node must not throw (tests import `synth.ts` only).
 
 ### Task 5: Counting rules + games registry
 
 **Files:**
+
 - Create: `src/lib/games/counting/rules.ts`, `src/lib/games/counting/rules.test.ts`
 - Create: `src/lib/games/registry.ts`, `src/lib/games/registry.test.ts`
 
 **Interfaces:**
+
 - Consumes: Task 1. (Port patterns from `kids-games-3/src/lib/count-fruit.ts`, adapted — do not copy wholesale.)
 - Produces (exact, consumed by Tasks 11, 12):
   - `type FruitId = 'apple'|'pear'|'orange'|'banana'|'grapes'|'strawberry'|'lemon'|'cherry'|'peach'|'watermelon'` (this order = `FRUITS` array)
@@ -145,11 +155,13 @@
 ### Task 6: i18n messages (it/ro/en/de)
 
 **Files:**
+
 - Modify: `messages/it.json`, `messages/ro.json`, `messages/en.json`, `messages/de.json` (seeded in Task 1)
 - Create: `src/lib/i18n.test.ts`
 - Modify: `tsconfig.json` (add `"resolveJsonModule": true` to compilerOptions — allowed one-line edit)
 
 **Interfaces:**
+
 - Consumes: Task 1. Seed translations for overlapping keys exist in `kids-games-3/messages/{locale}.json` (read them for tone; adapt, don't copy blindly).
 - Produces: the complete key set below in all four locales, for Tasks 9, 11, 12.
 
@@ -223,10 +235,12 @@ prompt_watermelon: "How many watermelons?"
 ### Task 7: Fruit art component
 
 **Files:**
+
 - Create: `src/lib/components/art/Fruit.svelte`
 
 **Interfaces:**
-- Consumes: `FruitId` from `$lib/games/counting/rules` (Task 5); tokens (Task 2).
+
+- Consumes: `FruitId` from `#lib/games/counting/rules.js` (Task 5); tokens (Task 2).
 - Produces (consumed by Tasks 11, 12): component props `{ kind: FruitId; size?: number (default 72); mood?: 'happy'|'plain' (default 'happy'); class?: string }`.
 
 - [ ] **Step 1: implement.** Inline `<svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true" class={klass}>`; port each fruit's shapes from `kids-games-3/src/lib/components/FruitArt.svelte` (read it first), then repolish: consistent soft palette across all ten (use token hexes: apple `--cn-berry`-ish red, pear leaf `--cn-leaf`, orange `--cn-accent`, banana `--cn-gold`, grapes `--cn-berry`, strawberry `--cn-berry`, lemon `--cn-gold`, cherry `--cn-berry`, peach `--cn-accent`, watermelon `--cn-leaf`); when `mood === 'happy'` add the simple face (two ink dots + smile); `plain` has no face. Svelte 5 runes; no `<style>` animation needed here.
@@ -235,6 +249,7 @@ prompt_watermelon: "How many watermelons?"
 ### Task 8: Bufi mascot, avatars, small UI primitives
 
 **Files:**
+
 - Create: `src/lib/components/art/Bufi.svelte`
 - Create: `src/lib/components/art/Avatar.svelte`
 - Create: `src/lib/components/ui/IconButton.svelte`
@@ -242,6 +257,7 @@ prompt_watermelon: "How many watermelons?"
 - Create: `src/lib/components/ui/ParentGate.svelte`
 
 **Interfaces:**
+
 - Consumes: tokens (T2), save module (T3), audio singleton (T4).
 - Produces (consumed by Tasks 10, 11, 12):
   - `Bufi.svelte` props `{ pose?: 'idle'|'hint'|'cheer'|'sleepy' (default 'idle'); size?: number (default 120); class?: string }` — cute round owl, SVG, `aria-hidden="true"`, gentle CSS animations (blink; per-pose motion) all disabled by reduced-motion.
@@ -255,17 +271,19 @@ prompt_watermelon: "How many watermelons?"
 ### Task 9: PWA — manifest, icons, service worker, update & install UX
 
 **Files:**
+
 - Create: `static/manifest.webmanifest`, `scripts/generate-icons.mjs`, `src/lib/assets/icon.svg`
 - Create: `src/lib/pwa/policy.ts`, `src/lib/pwa/policy.test.ts`, `src/lib/pwa/client.ts`
 - Create: `src/service-worker.ts`
 - Create: `src/lib/components/UpdateToast.svelte`, `src/lib/components/InstallHint.svelte`
-- Modify: `src/app.html` (manifest link, `apple-touch-icon`, apple web-app meta — allowed), `vite.config.ts` ONLY if needed to set `serviceWorker: { register: false }` inside `sveltekit(...)` (allowed one-line edit; check first)
+- Modify: `src/app.html` (manifest link, `apple-touch-icon`, apple web-app meta — allowed), `vite.config.ts` ONLY if needed to set `serviceWorker: { register: false }` inside `sveltekit(...)` (allowed one-line edit; check first), `tsconfig.json` (add `"exclude": ["src/service-worker"]` so the app typecheck skips the service worker — kit validates this)
 
 **Interfaces:**
+
 - Consumes: Task 1 build; message keys `update_ready`, `update_refresh`, `install_ios`, `later` (T6); tokens (T2). Reference: `music-player-pwa/pwa/src/service-worker.ts`, `src/lib/swPolicy.ts`, `scripts/generate-icons.mjs`, `static/manifest.webmanifest`, `UpdateToast.svelte`, `InstallHint.svelte` (read-only, adapt).
-- Produces (consumed by Task 11): `initPwa(): void` from `$lib/pwa/client` — registers `/service-worker.js` (browser + production only), listens `updatefound`, exposes an internal subscription that shows nothing by itself; exports `applyUpdate(): void` (posts `SKIP_WAITING`); reloads once on `controllerchange`. Components `UpdateToast` and `InstallHint` are self-contained (subscribe/register themselves) and can be dropped into any page.
+- Produces (consumed by Task 11): `initPwa(): void` from `#lib/pwa/client.js` — registers `/service-worker.js` (browser + production only), listens `updatefound`, exposes an internal subscription that shows nothing by itself; exports `applyUpdate(): void` (posts `SKIP_WAITING`); reloads once on `controllerchange`. Components `UpdateToast` and `InstallHint` are self-contained (subscribe/register themselves) and can be dropped into any page.
 - [ ] **Step 1: pure policy + tests first.** `policy.ts`: `type CacheDecision = 'bypass'|'cache-first'|'network-first'`; `decide({ method, url, origin, mode, destination }, appOrigin): CacheDecision` — `GET` same-origin navigation → `network-first`; `GET` same-origin asset → `cache-first`; anything else (POST, cross-origin, range) → `bypass`. Tests cover each branch.
-- [ ] **Step 2: service worker.** Use `$service-worker` (`build`, `files`, `prerendered`) + versioned cache name; install: `addAll` (ignore individual failures); activate: delete stale caches, `clients.claim()`; message `SKIP_WAITING` → `skipWaiting()`; fetch: apply `decide()` — `cache-first` (network fallback + put for same-origin GETs), `network-first` for navigations with fallback to cached `/index.html`, `bypass` otherwise. Never cache cross-origin or non-GET.
+- [ ] **Step 2: service worker.** SvelteKit 3 removed `$service-worker`: import `immutable`, `assets` and `prerendered` from `$app/manifest`, `version` from `$app/env`, and `resolve` from `$app/paths`; use a versioned cache name; install: `addAll` (ignore individual failures); activate: delete stale caches, `clients.claim()`; message `SKIP_WAITING` → `skipWaiting()`; fetch: apply `decide()` — `cache-first` (network fallback + put for same-origin GETs), `network-first` for navigations with fallback to cached `/index.html`, `bypass` otherwise. Never cache cross-origin or non-GET.
 - [ ] **Step 3: client + components.** `client.ts` as specified. `UpdateToast.svelte`: bottom toast, shows on update-ready, button "Refresh" → `applyUpdate()`. `InstallHint.svelte`: iOS Safari only (not standalone), one gentle bottom card, "Later" dismiss persists a localStorage flag.
 - [ ] **Step 4: icons.** `src/lib/assets/icon.svg` (paper rounded square, Bufi face: two big eyes, beak, ear tufts — cohesive with T8). `scripts/generate-icons.mjs` uses `@resvg/resvg-js` → `static/icons/icon-192.png`, `icon-512.png`, `icon-maskable-512.png` (extra 15% safe-zone padding), `apple-touch-icon.png` (180×180). Run `pnpm icons`; PNGs are the app's only tracked raster files.
 - [ ] **Step 5: manifest + app.html.** manifest: name/short_name "Cozy Nook", `lang: "it"`, `start_url: "/"`, `scope: "/"`, `display: "standalone"`, `background_color/theme_color: "#fdf6e9"`, icons (192, 512, maskable-512). app.html: `<link rel="manifest">`, `<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">`, `<meta name="apple-mobile-web-app-capable" content="yes">`, `<meta name="apple-mobile-web-app-status-bar-style" content="default">`.
@@ -274,9 +292,11 @@ prompt_watermelon: "How many watermelons?"
 ### Task 10: Celebration components
 
 **Files:**
+
 - Create: `src/lib/components/Confetti.svelte`, `src/lib/components/Sparkles.svelte`, `src/lib/components/LevelComplete.svelte`
 
 **Interfaces:**
+
 - Consumes: tokens (T2); message keys `level_complete`, `next_level`, `play_again`, `all_levels`, `new`, `cheer` (T6). Reference: `kids-games-3/src/lib/components/Confetti.svelte` (adapt).
 - Produces (consumed by Task 12):
   - `Confetti.svelte` props `{ active: boolean; pieces?: number (default 90); onDone?: () => void }` — canvas `position:absolute; inset:0; pointer-events:none`, parent must be `position:relative`; stops + clears when `active` false; reduced-motion → renders nothing and calls `onDone` immediately.
@@ -288,27 +308,31 @@ prompt_watermelon: "How many watermelons?"
 ### Task 11: App shell — layout, home, profiles, settings
 
 **Files:**
+
 - Modify: `src/routes/+layout.svelte`
 - Modify: `src/routes/+page.svelte` (home)
 - Create: `src/routes/settings/+page.svelte`
 
 **Interfaces:**
+
 - Consumes: Tasks 2, 3, 4, 5 (registry), 6, 7, 8, 9 (`initPwa`), 10.
 - Produces: navigable shell (`/`, `/settings`), first-run profile setup, active-profile switching, parent-gated settings. Reference for i18n patterns: `kids-games-3/src/routes/+layout.svelte` + `+page.svelte` (read them).
 - [ ] **Step 1: `+layout.svelte`.** Keep it thin: import app.css; `{@render children()}`; `<svelte:head><title>{m.app_name()}</title></svelte:head>`; `onMount`: apply saved mute (`audio.setMuted(save.settings.muted)`), `initPwa()`, and a one-shot `pointerdown` listener on `window` that calls `audio.unlock()` (audio then applies any remembered scene). `UpdateToast` + `InstallHint` mounted here (they self-manage visibility).
 - [ ] **Step 2: home page.** On mount: `loadSave(localStorage)` into `$state`; `audio.playMusic('home')`. Render: header (`app_name`, `tagline`, `Settings` gear via `IconButton` → `/settings`); Bufi idle greeting + active-profile chip (tap → inline sheet listing profiles + `home_add_kid`); if no profiles: first-run card (`kid_name` input + avatar grid via `Avatar` + `start_playing` → `addProfile` + persist). Game section: for each `GAMES` entry a tile (icon: `Fruit kind="apple"` for `'fruit'`; title/desc via message keys; progress `m.progress({done: getCleared(...)})`; `href`); every tile ≥ 88px tall; plus one non-interactive `coming_soon_tile` tile. All copy via messages. Music must not be restarted when returning (engine dedupes).
-- [ ] **Step 3: settings page.** `ParentGate` wraps everything (label `for_grownups`, hint `hold_to_open`). Inside: language switcher (4 buttons; use `getLocale`/`setLocale` from `$lib/paraglide/runtime`; active state visible), sound row with `MuteButton` (md) + `music_on/music_off` label, kids list from save (each: `Avatar` + name + `remove_kid` with inline `remove_kid_confirm` yes/no → `removeProfile` + persist), add-kid form (name + avatar grid). `back` `IconButton` → `/`.
+- [ ] **Step 3: settings page.** `ParentGate` wraps everything (label `for_grownups`, hint `hold_to_open`). Inside: language switcher (4 buttons; use `getLocale`/`setLocale` from `#lib/paraglide/runtime.js`; active state visible), sound row with `MuteButton` (md) + `music_on/music_off` label, kids list from save (each: `Avatar` + name + `remove_kid` with inline `remove_kid_confirm` yes/no → `removeProfile` + persist), add-kid form (name + avatar grid). `back` `IconButton` → `/`.
 - [ ] **Step 4: verify.** `pnpm check`, `pnpm build`; orchestrator will browser-test.
 
 ### Task 12: Counting game — level map + play screen
 
 **Files:**
+
 - Create: `src/routes/play/counting/+page.svelte` (level map)
 - Create: `src/routes/play/counting/[level]/+page.svelte` (game)
 - Create: `src/lib/games/counting/NumeralBubble.svelte`
 - Create: `src/lib/games/counting/session.svelte.ts`
 
 **Interfaces:**
+
 - Consumes: Tasks 2, 3, 4, 5 (rules + registry), 6, 7, 8, 10. Reference: `kids-games-3/src/routes/play/count-fruit/[level]/+page.svelte` + `+page.svelte` (adapt flows, new art/audio).
 - Produces: complete gameplay loop; `NumeralBubble` props `{ value: number; state: 'idle'|'glow'|'pulse'|'correct'|'wrong'; onclick?: () => void }` (wood pill, ≥64px, ink numeral, `cn-press`; `glow` = soft accent halo, `pulse` = stronger animated halo, `correct` = leaf fill + scale pop, `wrong` = wiggle 400ms + stays idle after).
 - [ ] **Step 1: `session.svelte.ts`.** Factory `createCountingSession(level: number)` returning runes state + methods: `rounds` (from `generateLevel`), `roundIndex`, `misses`, `manualHints`, `counted` (Set of fruit indexes, assist ticker), `phase: 'playing'|'celebrating'|'complete'`, derived `round`, `hint`, `isLast`; methods `tapFruit(i)`, `answer(value: number): boolean` (returns correct), `help()`, `advance()` (called after celebrate delay), `replay()` (fresh rounds, same level). No timers inside; the page owns the 10s idle timer and calls `session.help()`-style nudges via a `markIdle()` method feeding `hintStage(misses, manualHints, idle)`.
@@ -319,9 +343,11 @@ prompt_watermelon: "How many watermelons?"
 ### Task 13: README, deploy config, final polish
 
 **Files:**
+
 - Create: `README.md`, `vercel.json`
 
 **Interfaces:**
+
 - Consumes: everything.
 - [ ] **Step 1: `vercel.json`.** SPA rewrites: `{"rewrites":[{"source":"/(.*)","destination":"/index.html"}]}`.
 - [ ] **Step 2: `README.md`.** What it is (one paragraph + spec link), stack, `pnpm install`, `pnpm dev`, `pnpm test`, `pnpm check`, `pnpm build`, `pnpm preview`, `pnpm icons`; deploy: import the GitHub repo in Vercel (static build, no env vars; includes `vercel.json` rewrites); structure map (`src/lib/{audio,storage,games,pwa,components}`, routes); credits: reference projects used, portrait/landscape note.
@@ -333,3 +359,10 @@ prompt_watermelon: "How many watermelons?"
 
 - Voice narration (milestone 1.5): needs a Romanian audition on the local Qwen3-TTS studio; message keys are already structured so lines can map to keys later.
 - Games 2–7 (wave 1 continues after this plan), stars/badges, remote sync, analytics — all out of scope here.
+
+## Owner directives (amendments)
+
+- **2026-10-09: Graphics and art tasks dispatch to DeepSeek V4.1 Flash** (`opencode-go/deepseek-v4.1-flash`, paid $0.15/$0.6 per M tokens) — owner-certified via _Wurstel e Sogni_ and reaffirmed explicitly. Muse Spark 1.3 only when the owner asks for it; every asset report names its artist.
+- 2026-10-09: Every counting level offers exactly **3 numeral choices**; fruit kinds **rotate per level**; fruits and avatars have **happy/plain/sad moods** and the counting field smiles on correct answers, looks sad on wrong ones.
+- 2026-10-09: **Mascot replaced** — Bufi the owl becomes **Muguri**, a little sprout (Task 17); the owl remains a profile avatar. **Game graphics mirror Muguri's garden palette** (Task 18): garden field, sprout-bud decorations, leaf accents — fruits keep their identity colors. Music iterated by listening (owner, who also hand-tunes `music.ts` directly): `SCENE_TEMPO` 96/103 (game tempo owner-tuned), marimba peak 0.17, high sparkles calmed (ornament chance 0.28, octave echoes capped at A5, softer twiddle/echo levels).
+- 2026-10-09: **Beauty pass (Task 19)** — motion language borrowed from _Wurstel e Sogni_ (overshoot "boing" arrivals, squash-and-stretch taps, staggered entrances, breathing garden light) plus a **livelier, more inviting palette** (sunlit-garden token lift; PWA icon and every inline hex copy synced). `ART-STYLE.md` added as the standing art bible (principles, palette, motion tokens, face grammar, size ladder, shipping process).
