@@ -41,9 +41,9 @@ The three-second press that reveals grown-up settings, protecting kids from acci
 _Avoid_: lock screen, PIN
 
 **Mascot**:
-Bufi, the friendly owl who hosts the home scene and delivers hints, cheers, and gentle guidance.
-_Avoid_: buddy, character (when Bufi is meant)
+Muguri, the friendly little sprout who hosts the home scene and delivers hints, cheers, and gentle guidance.
+_Avoid_: buddy, character (when Muguri is meant)
 
 **Home**:
-The cozy scene that hosts the game tiles, Bufi, and the active profile.
+The cozy scene that hosts the game tiles, Muguri, and the active profile.
 _Avoid_: menu, dashboard, lobby

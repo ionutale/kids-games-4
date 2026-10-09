@@ -364,3 +364,4 @@ prompt_watermelon: "How many watermelons?"
 
 - **2026-10-09: Graphics and art tasks always dispatch to Muse Spark 1.3** (`opencode/muse-spark-1.3-contributor-free#high`; paid `opencode-go/muse-spark-1.3-contributor` only as a rate-limit fallback) — the owner prefers its graphic taste over the other free models.
 - 2026-10-09: Every counting level offers exactly **3 numeral choices**; fruit kinds **rotate per level**; fruits and avatars have **happy/plain/sad moods** and the counting field smiles on correct answers, looks sad on wrong ones.
+- 2026-10-09: **Mascot replaced** — Bufi the owl becomes **Muguri**, a little sprout (Task 17); the owl remains a profile avatar. **Game graphics mirror Muguri's garden palette** (Task 18): garden field, sprout-bud decorations, leaf accents — fruits keep their identity colors. Music retuned bouncier for 4–7 y/os (`SCENE_TEMPO` 104/118).

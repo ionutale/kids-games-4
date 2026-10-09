@@ -11,13 +11,13 @@ Cozy Nook is a mobile-first web app (installable PWA) of calm learning games for
 - **Art:** hand-built HTML/CSS/SVG only; canvas only where it earns it (confetti, particles). Zero in-app raster; the only PNGs are PWA icons rasterized from SVG at build time.
 - **Sound:** 100% procedural WebAudio (see ADR-0001) — generative calm lullaby (warm pad, sparse pentatonic plucks, soft noise bed), cozy SFX set: `tap, correct, wrong, hint, unlock, celebrate, ui`. Mute toggle. iOS-safe: silent until first gesture. Music ducks under future speech.
 - **Voice narration:** deferred to milestone 1.5. Qwen3-TTS covers it/en/de but not Romanian; a Romanian audition decides RO handling. Architecture is silent-aware: missing narration = silence, never an error.
-- **Never stuck, never punished:** wrong tap = gentle wiggle + soft low chime; no red X, no buzzer, no timer. Staged hints: nudge → strong hint → reveal. Bufi help button always on screen.
-- **Celebrations:** sparkle burst + chime + Bufi cheer per correct answer; full-screen confetti + music sting + level-complete card per finished level.
+- **Never stuck, never punished:** wrong tap = gentle wiggle + soft low chime; no red X, no buzzer, no timer. Staged hints: nudge → strong hint → reveal. Muguri help button always on screen.
+- **Celebrations:** sparkle burst + chime + Muguri cheer per correct answer; full-screen confetti + music sting + level-complete card per finished level.
 - **Levels:** ten per game; completion = all rounds finished; next level unlocks permanently per profile; level map with replay for any unlocked level.
 
 ## Shell (shared by every game)
 
-- **Home:** cozy illustrated scene; Bufi hosts; one large tile per game plus a "coming soon" spot; music continues across screens; settings (sound, language, profiles) behind a 3-second press Parent Gate.
+- **Home:** cozy illustrated scene; Muguri hosts; one large tile per game plus a "coming soon" spot; music continues across screens; settings (sound, language, profiles) behind a 3-second press Parent Gate.
 - **Profiles:** first run asks name + animal avatar (owl, fox, bear, bunny, cat, hedgehog); picker auto-skips when only one profile exists; per-profile versioned save in localStorage (`cozy-nook-save`, version 1).
 - **Game module pattern:** each game = pure testable rules + level config + Svelte view + message keys + audio-event mapping, registered in one games registry; shared services (audio, hints, celebration, save) come from `$lib`.
 
@@ -38,7 +38,7 @@ Loop: fruits appear; the kid counts them and taps the matching numeral bubble. 5
 | 9     | 3–18  | scatter | 3       | 3     | yes               |
 | 10    | 5–20  | scatter | 3       | 3     | yes               |
 
-> _Update 2026-10-09 (owner feedback): every level offers exactly 3 numeral choices. Fruit kinds rotate per level (L2 pears, L5 grapes, …). Fruits and avatars have happy/plain/sad moods; the counting field smiles on a correct answer and looks sad on a wrong one._
+> _Update 2026-10-09 (owner feedback): every level offers exactly 3 numeral choices. Fruit kinds rotate per level (L2 pears, L5 grapes, …). Fruits and avatars have happy/plain/sad moods; the counting field smiles on a correct answer and looks sad on a wrong one. The mascot is now **Muguri**, a little sprout (the owl "Bufi" remains a profile avatar); game graphics mirror Muguri's garden palette._
 
 Art: ten SVG fruits (ported and repolished from kids-games-3), wooden numeral bubbles, cozy garden scene.
 
