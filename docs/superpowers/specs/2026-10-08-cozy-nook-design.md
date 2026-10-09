@@ -27,16 +27,18 @@ Loop: fruits appear; the kid counts them and taps the matching numeral bubble. 5
 
 | Level | Count | Layout  | Choices | Kinds | Tight distractors |
 | ----- | ----- | ------- | ------- | ----- | ----------------- |
-| 1     | 1–3   | row     | 2       | 1     | no                |
-| 2     | 1–4   | row     | 2       | 1     | no                |
+| 1     | 1–3   | row     | 3       | 1     | no                |
+| 2     | 1–4   | row     | 3       | 1     | no                |
 | 3     | 1–5   | row     | 3       | 1     | no                |
 | 4     | 2–6   | cluster | 3       | 1     | no                |
 | 5     | 1–8   | scatter | 3       | 1     | no (assist)       |
 | 6     | 2–10  | scatter | 3       | 2     | no (assist)       |
-| 7     | 1–12  | scatter | 4       | 2     | yes               |
-| 8     | 1–15  | scatter | 4       | 2     | yes               |
-| 9     | 3–18  | scatter | 4       | 3     | yes               |
-| 10    | 5–20  | scatter | 4       | 3     | yes               |
+| 7     | 1–12  | scatter | 3       | 2     | yes               |
+| 8     | 1–15  | scatter | 3       | 2     | yes               |
+| 9     | 3–18  | scatter | 3       | 3     | yes               |
+| 10    | 5–20  | scatter | 3       | 3     | yes               |
+
+> _Update 2026-10-09 (owner feedback): every level offers exactly 3 numeral choices. Fruit kinds rotate per level (L2 pears, L5 grapes, …). Fruits and avatars have happy/plain/sad moods; the counting field smiles on a correct answer and looks sad on a wrong one._
 
 Art: ten SVG fruits (ported and repolished from kids-games-3), wooden numeral bubbles, cozy garden scene.
 
