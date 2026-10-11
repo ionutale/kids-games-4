@@ -24,10 +24,12 @@
 	type Locale = (typeof locales)[number];
 
 	const TITLES: Record<string, () => string> = {
-		game_counting_name: () => m.game_counting_name()
+		game_counting_name: () => m.game_counting_name(),
+		game_color_match_name: () => m.game_color_match_name()
 	};
 	const DESCS: Record<string, () => string> = {
-		game_counting_desc: () => m.game_counting_desc()
+		game_counting_desc: () => m.game_counting_desc(),
+		game_color_match_desc: () => m.game_color_match_desc()
 	};
 
 	function gameTitle(game: GameMeta): string {
