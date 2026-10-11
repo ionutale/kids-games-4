@@ -1,6 +1,6 @@
 # Color Match — design spec (game #2, milestone 2)
 
-Date: 2026-10-11 · Status: awaiting owner review · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-2`
+Date: 2026-10-11 · Status: shipped (milestone 2) · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-2`
 
 ## Goal
 

@@ -1,6 +1,6 @@
 # Cozy Nook
 
-Cozy Nook is a mobile-first, installable PWA of calm learning games for kids aged 5–8. It is fully offline, keeps all data on the device (no accounts, no analytics, no runtime network calls), and speaks Italian, Romanian, English, and German (device locale wins, Italian fallback, switcher in settings). A friendly little sprout named Muguri hosts a growing collection of gentle mini-games with hand-built HTML/CSS/SVG art, procedural WebAudio music and sound effects, and a "never stuck, never punished" hint system.
+Cozy Nook is a mobile-first, installable PWA of calm learning games for kids aged 4–7. It is fully offline, keeps all data on the device (no accounts, no analytics, no runtime network calls), and speaks Italian, Romanian, English, and German (device locale wins, Italian fallback, switcher in settings). A friendly little sprout named Muguri hosts a growing collection of gentle mini-games with hand-built HTML/CSS/SVG art, procedural WebAudio music and sound effects, and a "never stuck, never punished" hint system.
 
 Read the full design spec: [docs/superpowers/specs/2026-10-08-cozy-nook-design.md](docs/superpowers/specs/2026-10-08-cozy-nook-design.md)
 
