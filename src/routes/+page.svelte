@@ -18,6 +18,7 @@
 	import Muguri from '#lib/components/art/Muguri.svelte';
 	import Avatar from '#lib/components/art/Avatar.svelte';
 	import Fruit from '#lib/components/art/Fruit.svelte';
+	import Balloon from '#lib/components/art/Balloon.svelte';
 	import IconButton from '#lib/components/ui/IconButton.svelte';
 
 	type Locale = (typeof locales)[number];
@@ -234,6 +235,8 @@
 					<span class="tile-icon">
 						{#if game.icon === 'fruit'}
 							<Fruit kind="apple" size={64} />
+						{:else if game.icon === 'color'}
+							<Balloon color="red" size={64} />
 						{:else}
 							<Fruit kind="apple" size={64} />
 						{/if}
