@@ -39,7 +39,7 @@ Game #2 of Cozy Nook: a **color-recognition game for ages 4–7** in the same co
 - No consecutive rounds with the same target color.
 - Counting's "exactly 3 choices" rule was counting-specific — Color Match ramps 2 → 3 → 4.
 
-**Color set:** red, yellow, blue, green, orange, purple, pink + shade variants (light/dark blue, light/dark green). Hues must read as their name (red is not pink) — that is the teaching point. Teal (the sky's hue) appears **only as a distractor** in near-neighbor rounds — never a target, so it needs no name key. Hexes are tuned in the art pass (garden-friendly, not neon) and **choices within a round always differ in lightness** so color-blind kids can still solve by luminance.
+**Color set:** red, yellow, blue, green, orange, purple, pink + shade variants (light/dark blue, light/dark green). Hues must read as their name (red is not pink) — that is the teaching point. Teal (the sky's hue) appears **only as a distractor** in near-neighbor rounds — never a target; its name key exists solely for accessibility labels (12 names). Hexes are tuned in the art pass (garden-friendly, not neon) and **choices within a round always differ in lightness** so color-blind kids can still solve by luminance.
 
 ## Prompt & feedback details
 
