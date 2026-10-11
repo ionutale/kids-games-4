@@ -224,7 +224,10 @@ export function makeOptions(
 		take(others, config.choices - 1);
 	}
 	// Widen rather than violating the (hue, tone) constraint.
-	take(ALL_IDS.filter((id) => id !== target), config.choices - 1);
+	take(
+		ALL_IDS.filter((id) => id !== target),
+		config.choices - 1
+	);
 	return shuffled(picked.slice(0, config.choices), rand);
 }
 
