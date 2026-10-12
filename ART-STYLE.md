@@ -16,6 +16,7 @@ The single reference for every visual asset in this app. **Artist of record:** D
 - Palette intent: **sunlit garden** — cream paper, cocoa ink, vivid-but-soft leaf, warm accents. Not neon, not gray.
 - Fruit **identity colors stay distinct** (apple red, banana yellow…) — that is the color-teaching point.
 - Decorative gradient stops that are not brand colors (e.g. the garden's warm light wash `rgba(255,236,170,…)`) may stay literal — they are ambience, not palette.
+- Game-content palettes (fruits, balloons) live as inline hex sets inside their components, tuned to the same sunlit-garden intent — red reads red, light/deep pairs genuinely split, teal sits between blue and green.
 
 | Token                   | Value                 | Use                                              |
 | ----------------------- | --------------------- | ------------------------------------------------ |
@@ -76,6 +77,7 @@ Test every asset at **28 px** (help button) · **64 px** (field/tiles) · **96�
 | -------------------------------- | ------------------------------------------------------------- |
 | Mascot Muguri (4 poses)          | `src/lib/components/art/Muguri.svelte`                        |
 | 10 fruits × 3 moods              | `src/lib/components/art/Fruit.svelte`                         |
+| 12 balloons × 3 moods            | `src/lib/components/art/Balloon.svelte`                       |
 | 6 animal avatars × 3 moods       | `src/lib/components/art/Avatar.svelte`                        |
 | Wooden numeral bubbles           | `src/lib/games/counting/NumeralBubble.svelte`                 |
 | Confetti / sparkles / level card | `src/lib/components/{Confetti,Sparkles,LevelComplete}.svelte` |

@@ -15,6 +15,14 @@ describe('GAMES', () => {
 				href: '/play/counting',
 				accent: 'leaf',
 				icon: 'fruit'
+			},
+			{
+				id: 'color-match',
+				titleKey: 'game_color_match_name',
+				descKey: 'game_color_match_desc',
+				href: '/play/color-match',
+				accent: 'berry',
+				icon: 'color'
 			}
 		]);
 	});
@@ -23,6 +31,10 @@ describe('GAMES', () => {
 describe('getGame', () => {
 	it('finds a known game', () => {
 		expect(getGame('counting')).toEqual(GAMES[0]);
+	});
+
+	it('finds the color-match game', () => {
+		expect(getGame('color-match')).toEqual(GAMES[1]);
 	});
 
 	it('returns undefined for an unknown game', () => {

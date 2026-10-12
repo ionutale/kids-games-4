@@ -18,15 +18,18 @@
 	import Muguri from '#lib/components/art/Muguri.svelte';
 	import Avatar from '#lib/components/art/Avatar.svelte';
 	import Fruit from '#lib/components/art/Fruit.svelte';
+	import Balloon from '#lib/components/art/Balloon.svelte';
 	import IconButton from '#lib/components/ui/IconButton.svelte';
 
 	type Locale = (typeof locales)[number];
 
 	const TITLES: Record<string, () => string> = {
-		game_counting_name: () => m.game_counting_name()
+		game_counting_name: () => m.game_counting_name(),
+		game_color_match_name: () => m.game_color_match_name()
 	};
 	const DESCS: Record<string, () => string> = {
-		game_counting_desc: () => m.game_counting_desc()
+		game_counting_desc: () => m.game_counting_desc(),
+		game_color_match_desc: () => m.game_color_match_desc()
 	};
 
 	function gameTitle(game: GameMeta): string {
@@ -234,6 +237,8 @@
 					<span class="tile-icon">
 						{#if game.icon === 'fruit'}
 							<Fruit kind="apple" size={64} />
+						{:else if game.icon === 'color'}
+							<Balloon color="red" size={64} />
 						{:else}
 							<Fruit kind="apple" size={64} />
 						{/if}

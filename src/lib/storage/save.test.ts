@@ -236,6 +236,17 @@ describe('clearLevel', () => {
 		expect(getCleared(data, profile.id, 'memory')).toBe(3);
 		expect(getCleared(data, profile.id, 'puzzle')).toBe(1);
 	});
+
+	it('keeps counting and color-match progress isolated', () => {
+		const data = defaultSave();
+		const profile = addProfile(data, 'Ava', 'owl');
+		clearLevel(data, profile.id, 'counting', 3);
+		expect(getCleared(data, profile.id, 'counting')).toBe(3);
+		expect(getCleared(data, profile.id, 'color-match')).toBe(0);
+		clearLevel(data, profile.id, 'color-match', 2);
+		expect(getCleared(data, profile.id, 'color-match')).toBe(2);
+		expect(getCleared(data, profile.id, 'counting')).toBe(3);
+	});
 });
 
 describe('isLevelOpen', () => {
