@@ -78,6 +78,7 @@ Test every asset at **28 px** (help button) · **64 px** (field/tiles) · **96�
 | Mascot Muguri (4 poses)          | `src/lib/components/art/Muguri.svelte`                        |
 | 10 fruits × 3 moods              | `src/lib/components/art/Fruit.svelte`                         |
 | 12 balloons × 3 moods            | `src/lib/components/art/Balloon.svelte`                       |
+| Acorn (3 moods)                  | `src/lib/components/art/Acorn.svelte`                         |
 | 6 animal avatars × 3 moods       | `src/lib/components/art/Avatar.svelte`                        |
 | Wooden numeral bubbles           | `src/lib/games/counting/NumeralBubble.svelte`                 |
 | Confetti / sparkles / level card | `src/lib/components/{Confetti,Sparkles,LevelComplete}.svelte` |

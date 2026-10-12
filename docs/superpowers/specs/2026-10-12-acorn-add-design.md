@@ -1,6 +1,6 @@
 # Acorn Addition — design spec (game #3, milestone 3)
 
-Date: 2026-10-12 · Status: awaiting owner review · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-3`
+Date: 2026-10-12 · Status: shipped (milestone 3) · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-3`
 
 ## Goal
 
