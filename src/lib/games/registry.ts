@@ -4,7 +4,7 @@
  * one entry here.
  */
 
-export type GameId = 'counting' | 'color-match';
+export type GameId = 'counting' | 'color-match' | 'acorn-add';
 
 export interface GameMeta {
 	id: GameId;
@@ -33,6 +33,14 @@ export const GAMES: GameMeta[] = [
 		href: '/play/color-match',
 		accent: 'berry',
 		icon: 'color'
+	},
+	{
+		id: 'acorn-add',
+		titleKey: 'game_acorn_add_name',
+		descKey: 'game_acorn_add_desc',
+		href: '/play/acorn-add',
+		accent: 'accent',
+		icon: 'logic'
 	}
 ];
 

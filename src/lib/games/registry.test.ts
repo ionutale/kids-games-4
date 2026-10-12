@@ -23,6 +23,14 @@ describe('GAMES', () => {
 				href: '/play/color-match',
 				accent: 'berry',
 				icon: 'color'
+			},
+			{
+				id: 'acorn-add',
+				titleKey: 'game_acorn_add_name',
+				descKey: 'game_acorn_add_desc',
+				href: '/play/acorn-add',
+				accent: 'accent',
+				icon: 'logic'
 			}
 		]);
 	});
@@ -35,6 +43,10 @@ describe('getGame', () => {
 
 	it('finds the color-match game', () => {
 		expect(getGame('color-match')).toEqual(GAMES[1]);
+	});
+
+	it('finds the acorn-add game', () => {
+		expect(getGame('acorn-add')).toEqual(GAMES[2]);
 	});
 
 	it('returns undefined for an unknown game', () => {
