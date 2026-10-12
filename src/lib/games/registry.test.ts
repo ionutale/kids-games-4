@@ -31,6 +31,14 @@ describe('GAMES', () => {
 				href: '/play/acorn-add',
 				accent: 'accent',
 				icon: 'logic'
+			},
+			{
+				id: 'feelings-faces',
+				titleKey: 'game_feelings_name',
+				descKey: 'game_feelings_desc',
+				href: '/play/feelings-faces',
+				accent: 'leaf',
+				icon: 'face'
 			}
 		]);
 	});
@@ -47,6 +55,10 @@ describe('getGame', () => {
 
 	it('finds the acorn-add game', () => {
 		expect(getGame('acorn-add')).toEqual(GAMES[2]);
+	});
+
+	it('finds the feelings-faces game', () => {
+		expect(getGame('feelings-faces')).toEqual(GAMES[3]);
 	});
 
 	it('returns undefined for an unknown game', () => {

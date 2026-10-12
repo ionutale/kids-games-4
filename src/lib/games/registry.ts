@@ -4,7 +4,7 @@
  * one entry here.
  */
 
-export type GameId = 'counting' | 'color-match' | 'acorn-add';
+export type GameId = 'counting' | 'color-match' | 'acorn-add' | 'feelings-faces';
 
 export interface GameMeta {
 	id: GameId;
@@ -14,7 +14,7 @@ export interface GameMeta {
 	descKey: string;
 	href: string;
 	accent: 'leaf' | 'accent' | 'berry';
-	icon: 'fruit' | 'color' | 'logic';
+	icon: 'fruit' | 'color' | 'logic' | 'face';
 }
 
 export const GAMES: GameMeta[] = [
@@ -41,6 +41,14 @@ export const GAMES: GameMeta[] = [
 		href: '/play/acorn-add',
 		accent: 'accent',
 		icon: 'logic'
+	},
+	{
+		id: 'feelings-faces',
+		titleKey: 'game_feelings_name',
+		descKey: 'game_feelings_desc',
+		href: '/play/feelings-faces',
+		accent: 'leaf',
+		icon: 'face'
 	}
 ];
 

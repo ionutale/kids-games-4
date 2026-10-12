@@ -73,17 +73,19 @@ Test every asset at **28 px** (help button) · **64 px** (field/tiles) · **96�
 
 ## 7. Asset map
 
-| Asset                            | File                                                          |
-| -------------------------------- | ------------------------------------------------------------- |
-| Mascot Muguri (4 poses)          | `src/lib/components/art/Muguri.svelte`                        |
-| 10 fruits × 3 moods              | `src/lib/components/art/Fruit.svelte`                         |
-| 12 balloons × 3 moods            | `src/lib/components/art/Balloon.svelte`                       |
-| Acorn (3 moods)                  | `src/lib/components/art/Acorn.svelte`                         |
-| 6 animal avatars × 3 moods       | `src/lib/components/art/Avatar.svelte`                        |
-| Wooden numeral bubbles           | `src/lib/games/counting/NumeralBubble.svelte`                 |
-| Confetti / sparkles / level card | `src/lib/components/{Confetti,Sparkles,LevelComplete}.svelte` |
-| Garden field scene               | `src/routes/play/counting/[level]/+page.svelte`               |
-| App icon source                  | `src/lib/assets/icon.svg` → `pnpm icons`                      |
+| Asset                                                    | File                                                          |
+| -------------------------------------------------------- | ------------------------------------------------------------- |
+| Mascot Muguri (8 poses incl. sad/angry/scared/surprised) | `src/lib/components/art/Muguri.svelte`                        |
+| Mimo the mouse (7 poses)                                 | `src/lib/components/art/Mimo.svelte`                          |
+| 9 feeling vignettes                                      | `src/lib/components/art/FeelingScene.svelte`                  |
+| 10 fruits × 3 moods                                      | `src/lib/components/art/Fruit.svelte`                         |
+| 12 balloons × 3 moods                                    | `src/lib/components/art/Balloon.svelte`                       |
+| Acorn (3 moods)                                          | `src/lib/components/art/Acorn.svelte`                         |
+| 6 animal avatars × 3 moods                               | `src/lib/components/art/Avatar.svelte`                        |
+| Wooden numeral bubbles                                   | `src/lib/games/counting/NumeralBubble.svelte`                 |
+| Confetti / sparkles / level card                         | `src/lib/components/{Confetti,Sparkles,LevelComplete}.svelte` |
+| Garden field scene                                       | `src/routes/play/counting/[level]/+page.svelte`               |
+| App icon source                                          | `src/lib/assets/icon.svg` → `pnpm icons`                      |
 
 ## 8. How art ships
 
