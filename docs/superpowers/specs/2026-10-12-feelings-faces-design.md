@@ -1,6 +1,6 @@
 # Feelings Faces — design spec (game #4, milestone 4)
 
-Date: 2026-10-12 · Status: awaiting owner review · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-4`
+Date: 2026-10-12 · Status: shipped (milestone 4) · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-4`
 
 ## Goal
 
