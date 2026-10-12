@@ -1,5 +1,5 @@
 <script lang="ts">
-	type MuguriPose = 'idle' | 'hint' | 'cheer' | 'sleepy';
+	type MuguriPose = 'idle' | 'hint' | 'cheer' | 'sleepy' | 'sad' | 'angry' | 'scared' | 'surprised';
 
 	let {
 		pose = 'idle',
@@ -45,7 +45,93 @@
 		<!-- cheeks -->
 		<circle cx="38" cy="74" r="5" fill="#c64f78" opacity="0.55" />
 		<circle cx="82" cy="74" r="5" fill="#c64f78" opacity="0.55" />
-		<!-- face -->
+		<!-- face: one expression grammar shared with Mimo (ART-STYLE.md §4) -->
+		{#if pose === 'sad'}
+			<!-- inner-up tilted brows -->
+			<line
+				x1="40"
+				y1="58"
+				x2="48"
+				y2="55"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				stroke-linecap="round"
+			/>
+			<line
+				x1="72"
+				y1="55"
+				x2="80"
+				y2="58"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				stroke-linecap="round"
+			/>
+		{:else if pose === 'angry'}
+			<!-- inner-down slanted brows -->
+			<line
+				x1="40"
+				y1="56"
+				x2="48"
+				y2="60"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				stroke-linecap="round"
+			/>
+			<line
+				x1="72"
+				y1="60"
+				x2="80"
+				y2="56"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				stroke-linecap="round"
+			/>
+			<!-- slight red-ish flush over the berry cheeks -->
+			<ellipse cx="38" cy="76" rx="6.5" ry="4.5" fill="#d63b2f" opacity="0.32" />
+			<ellipse cx="82" cy="76" rx="6.5" ry="4.5" fill="#d63b2f" opacity="0.32" />
+		{:else if pose === 'scared'}
+			<!-- raised brows -->
+			<line
+				x1="41"
+				y1="53"
+				x2="49"
+				y2="51"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				stroke-linecap="round"
+			/>
+			<line
+				x1="71"
+				y1="51"
+				x2="79"
+				y2="53"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				stroke-linecap="round"
+			/>
+		{:else if pose === 'surprised'}
+			<!-- high arched brows + tiny motion ticks -->
+			<path
+				d="M40 51 Q44 47 48 50"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				fill="none"
+				stroke-linecap="round"
+			/>
+			<path
+				d="M72 50 Q76 47 80 51"
+				stroke="#4a3b2f"
+				stroke-width="2.5"
+				fill="none"
+				stroke-linecap="round"
+			/>
+			<g stroke="#7d6c58" stroke-width="2.5" stroke-linecap="round" opacity="0.75">
+				<line x1="28" y1="48" x2="23" y2="44" />
+				<line x1="32" y1="40" x2="28" y2="35" />
+				<line x1="92" y1="48" x2="97" y2="44" />
+				<line x1="88" y1="40" x2="92" y2="35" />
+			</g>
+		{/if}
 		<g class="muguri-eyes">
 			{#if pose === 'sleepy'}
 				<path
@@ -62,6 +148,14 @@
 					fill="none"
 					stroke-linecap="round"
 				/>
+			{:else if pose === 'sad' || pose === 'angry'}
+				<circle cx="48" cy="68" r="4" fill="#4a3b2f" />
+				<circle cx="72" cy="68" r="4" fill="#4a3b2f" />
+			{:else if pose === 'scared' || pose === 'surprised'}
+				<circle cx="48" cy="66" r="6" fill="#4a3b2f" />
+				<circle cx="72" cy="66" r="6" fill="#4a3b2f" />
+				<circle cx="50" cy="63.5" r="2" fill="#ffffff" opacity="0.9" />
+				<circle cx="74" cy="63.5" r="2" fill="#ffffff" opacity="0.9" />
 			{:else}
 				<circle cx="48" cy="66" r="4.5" fill="#4a3b2f" />
 				<circle cx="72" cy="66" r="4.5" fill="#4a3b2f" />
@@ -69,13 +163,45 @@
 				<circle cx="73.5" cy="64.5" r="1.5" fill="#ffffff" opacity="0.9" />
 			{/if}
 		</g>
-		<path
-			d="M54 76 Q60 82 66 76"
-			stroke="#4a3b2f"
-			stroke-width="3"
-			fill="none"
-			stroke-linecap="round"
-		/>
+		{#if pose === 'sad'}
+			<!-- one sky-blue tear + frown -->
+			<path
+				d="M81 67 C84.5 72 84.5 75 81 75 C77.5 75 77.5 72 81 67 Z"
+				fill="#a6e0d8"
+				stroke="#7d6c58"
+				stroke-width="1"
+			/>
+			<path
+				d="M54 80 Q60 74 66 80"
+				stroke="#4a3b2f"
+				stroke-width="3"
+				fill="none"
+				stroke-linecap="round"
+			/>
+		{:else if pose === 'angry'}
+			<!-- pressed wavy mouth -->
+			<path
+				d="M52 78 Q55 74.5 58 78 T64 78"
+				stroke="#4a3b2f"
+				stroke-width="3"
+				fill="none"
+				stroke-linecap="round"
+			/>
+		{:else if pose === 'scared'}
+			<!-- small open "o" mouth -->
+			<ellipse cx="60" cy="79" rx="4.2" ry="5.2" fill="#4a3b2f" />
+		{:else if pose === 'surprised'}
+			<!-- round open mouth -->
+			<ellipse cx="60" cy="80" rx="6" ry="7" fill="#4a3b2f" />
+		{:else}
+			<path
+				d="M54 76 Q60 82 66 76"
+				stroke="#4a3b2f"
+				stroke-width="3"
+				fill="none"
+				stroke-linecap="round"
+			/>
+		{/if}
 		<!-- root feet -->
 		<path
 			d="M48 104 Q46 110 40 110"
@@ -242,5 +368,15 @@
 		50% {
 			transform: scaleY(0.8);
 		}
+	}
+
+	/* the four expressive poses are static SVGs — motion lives on the game
+	   container (Task 6/7); suppress the shared dot-eye blink so the brows,
+	   wide eyes and tears stay put. */
+	.muguri--sad .muguri-eyes,
+	.muguri--angry .muguri-eyes,
+	.muguri--scared .muguri-eyes,
+	.muguri--surprised .muguri-eyes {
+		animation: none;
 	}
 </style>
