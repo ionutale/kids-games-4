@@ -27,12 +27,14 @@
 	const TITLES: Record<string, () => string> = {
 		game_counting_name: () => m.game_counting_name(),
 		game_color_match_name: () => m.game_color_match_name(),
-		game_acorn_add_name: () => m.game_acorn_add_name()
+		game_acorn_add_name: () => m.game_acorn_add_name(),
+		game_feelings_name: () => m.game_feelings_name()
 	};
 	const DESCS: Record<string, () => string> = {
 		game_counting_desc: () => m.game_counting_desc(),
 		game_color_match_desc: () => m.game_color_match_desc(),
-		game_acorn_add_desc: () => m.game_acorn_add_desc()
+		game_acorn_add_desc: () => m.game_acorn_add_desc(),
+		game_feelings_desc: () => m.game_feelings_desc()
 	};
 
 	function gameTitle(game: GameMeta): string {
@@ -244,6 +246,8 @@
 							<Balloon color="red" size={64} />
 						{:else if game.icon === 'logic'}
 							<Acorn size={64} />
+						{:else if game.icon === 'face'}
+							<Muguri pose="cheer" size={64} />
 						{:else}
 							<Fruit kind="apple" size={64} />
 						{/if}
