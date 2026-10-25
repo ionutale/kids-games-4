@@ -2,6 +2,8 @@
 
 Date: 2026-10-11 · Status: shipped (milestone 2) · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-2`
 
+> **Revision 2026-10-25:** the prompt and tap-the-match interaction were replaced by the portal-drag revision in `2026-10-25-color-match-portal-drag.md`. The curriculum, color set, generation rules, celebrations, and plumbing below remain in force.
+
 ## Goal
 
 Game #2 of Cozy Nook: a **color-recognition game for ages 4–7** in the same cozy garden world — offline-first PWA, four languages (it / ro / en / de), **no reading required** to play. Kids match a shown target color by tapping the right balloon.

@@ -24,6 +24,22 @@ _Avoid_: open, release
 Staged help that appears when a kid is stuck: a gentle nudge, then a strong hint, then a reveal. Hints only help; they never punish.
 _Avoid_: clue, tip, cheat
 
+**Target preview**:
+The always-visible balloon inside the portal that shows the color to find.
+_Avoid_: clue, prompt
+
+**Portal**:
+The garden arch that holds the target preview and receives the matching balloon.
+_Avoid_: gate, hole, goal
+
+**Action cue**:
+The ghost hand and dashed balloon that demonstrate the drag gesture without choosing an answer.
+_Avoid_: tutorial, hint
+
+**Drag**:
+The primary matching gesture in Color Match: pull a balloon from the field into the portal. A tap is a fallback, not a different kind of round.
+_Avoid_: swipe, throw
+
 **Celebration**:
 The feedback after a win — a small sparkle-and-chime cheer for every correct answer, a big confetti-and-music moment when a level is completed.
 _Avoid_: reward, prize
