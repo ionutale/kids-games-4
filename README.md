@@ -14,7 +14,7 @@ Read the full design spec: [docs/superpowers/specs/2026-10-08-cozy-nook-design.m
 
 ## Quick start
 
-Requires Node.js 26+ and pnpm.
+Requires Node.js 24+ and pnpm. Vercel builds on Node 24.x; local development is tested on Node 26.
 
 ```bash
 pnpm install      # install dependencies (compiles Paraglide messages)
