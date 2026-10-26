@@ -39,6 +39,14 @@ describe('GAMES', () => {
 				href: '/play/feelings-faces',
 				accent: 'leaf',
 				icon: 'face'
+			},
+			{
+				id: 'peekaboo-pairs',
+				titleKey: 'game_peekaboo_name',
+				descKey: 'game_peekaboo_desc',
+				href: '/play/peekaboo-pairs',
+				accent: 'berry',
+				icon: 'pairs'
 			}
 		]);
 	});
@@ -59,6 +67,10 @@ describe('getGame', () => {
 
 	it('finds the feelings-faces game', () => {
 		expect(getGame('feelings-faces')).toEqual(GAMES[3]);
+	});
+
+	it('finds the peekaboo-pairs game', () => {
+		expect(getGame('peekaboo-pairs')).toEqual(GAMES[4]);
 	});
 
 	it('returns undefined for an unknown game', () => {

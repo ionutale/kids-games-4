@@ -28,13 +28,15 @@
 		game_counting_name: () => m.game_counting_name(),
 		game_color_match_name: () => m.game_color_match_name(),
 		game_acorn_add_name: () => m.game_acorn_add_name(),
-		game_feelings_name: () => m.game_feelings_name()
+		game_feelings_name: () => m.game_feelings_name(),
+		game_peekaboo_name: () => m.game_peekaboo_name()
 	};
 	const DESCS: Record<string, () => string> = {
 		game_counting_desc: () => m.game_counting_desc(),
 		game_color_match_desc: () => m.game_color_match_desc(),
 		game_acorn_add_desc: () => m.game_acorn_add_desc(),
-		game_feelings_desc: () => m.game_feelings_desc()
+		game_feelings_desc: () => m.game_feelings_desc(),
+		game_peekaboo_desc: () => m.game_peekaboo_desc()
 	};
 
 	function gameTitle(game: GameMeta): string {
@@ -248,6 +250,45 @@
 							<Acorn size={64} />
 						{:else if game.icon === 'face'}
 							<Muguri pose="cheer" size={64} />
+						{:else if game.icon === 'pairs'}
+							<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" focusable="false">
+								<!-- back card, tilted left -->
+								<g transform="rotate(-14 25 34)">
+									<rect
+										x="8"
+										y="11"
+										width="34"
+										height="46"
+										rx="8"
+										fill="var(--cn-paper-2)"
+										stroke="var(--cn-wood)"
+										stroke-width="3"
+									/>
+								</g>
+								<!-- front card, tilted right, wearing the leaf card-back motif -->
+								<g transform="rotate(10 39.5 31.5)">
+									<rect
+										x="23"
+										y="9"
+										width="33"
+										height="45"
+										rx="8"
+										fill="var(--cn-paper-2)"
+										stroke="var(--cn-wood)"
+										stroke-width="3"
+									/>
+									<g
+										transform="translate(23 9) scale(0.6875)"
+										stroke="var(--cn-leaf-dark)"
+										stroke-width="3.5"
+										fill="var(--cn-leaf)"
+									>
+										<path d="M24 46 Q23 36 26 28" fill="none" stroke-linecap="round" />
+										<path d="M26 30 Q19 24 13 27 Q19 34 26 30 Z" />
+										<path d="M24 24 Q29 17 36 19 Q32 27 24 24 Z" />
+									</g>
+								</g>
+							</svg>
 						{:else}
 							<Fruit kind="apple" size={64} />
 						{/if}

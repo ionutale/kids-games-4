@@ -4,7 +4,7 @@
  * one entry here.
  */
 
-export type GameId = 'counting' | 'color-match' | 'acorn-add' | 'feelings-faces';
+export type GameId = 'counting' | 'color-match' | 'acorn-add' | 'feelings-faces' | 'peekaboo-pairs';
 
 export interface GameMeta {
 	id: GameId;
@@ -14,7 +14,7 @@ export interface GameMeta {
 	descKey: string;
 	href: string;
 	accent: 'leaf' | 'accent' | 'berry';
-	icon: 'fruit' | 'color' | 'logic' | 'face';
+	icon: 'fruit' | 'color' | 'logic' | 'face' | 'pairs';
 }
 
 export const GAMES: GameMeta[] = [
@@ -49,6 +49,14 @@ export const GAMES: GameMeta[] = [
 		href: '/play/feelings-faces',
 		accent: 'leaf',
 		icon: 'face'
+	},
+	{
+		id: 'peekaboo-pairs',
+		titleKey: 'game_peekaboo_name',
+		descKey: 'game_peekaboo_desc',
+		href: '/play/peekaboo-pairs',
+		accent: 'berry',
+		icon: 'pairs'
 	}
 ];
 
