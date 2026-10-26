@@ -16,6 +16,22 @@ _Avoid_: stage, chapter, step
 A single task inside a level — one question the kid answers before moving on. Finishing all rounds completes the level.
 _Avoid_: question, turn, task
 
+**Board**:
+One memory grid in Peekaboo Pairs: every card laid out for one peek and one matching pass. A level has three boards; a board takes the place of a round in this game.
+_Avoid_: round, stage, table
+
+**Peek**:
+The opening reveal in Peekaboo Pairs: every card turns face-up for a moment, then drops face-down before play. The peek shortens as levels rise.
+_Avoid_: preview, flash, preview mode
+
+**Pair**:
+The two cards showing the same picture. Finding both clears the pair.
+_Avoid_: match, twin
+
+**Near pair**:
+Two different pictures that look alike on purpose — an orange balloon and an orange fruit, light blue and dark blue. Kept off the board below level 8, allowed sparingly after it.
+_Avoid_: similar pair, trick pair
+
 **Unlock**:
 Making the next level playable once the current level is completed. Unlocking is permanent per profile.
 _Avoid_: open, release

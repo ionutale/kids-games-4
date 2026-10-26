@@ -1,6 +1,6 @@
 # Peekaboo Pairs — design spec (game #5, milestone 5)
 
-Date: 2026-10-26 · Status: draft — awaiting owner approval · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-5`
+Date: 2026-10-26 · Status: implemented — milestone 5, pending review · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-5`
 
 ## Goal
 

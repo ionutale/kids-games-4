@@ -52,6 +52,7 @@ _(Values set by the Task 19 color lift — keep in sync with `tokens.css`.)_
 - **Stagger:** `animation-delay` steps of `--cn-stagger` (90 ms) for waves (home tiles, cheering fruits, sparkles).
 - **Idle pulse:** numeral bubbles breathe scale 1↔1.03 over 2.8 s — uniform across all bubbles, never hints at an answer.
 - **Portal drag:** the target preview sits inside the portal arch; the chosen balloon flies into the arch over 760 ms with a sparkle at the portal. The action cue (ghost hand + dashed balloon) loops for 1.3 s after 6 s idle or a miss; the portal pulses for 1 s while cueing.
+- **Memory cards (Peekaboo Pairs):** cards flip with a 320 ms `rotateY` on a fixed footprint, so the grid never reflows. The peek turns every face up, then drops them with a 40 ms/card stagger. A match sparkles and stays up; a miss wiggles and flips back. Reduced motion replaces the rotation with an opacity crossfade. The card back is a cream leaf motif with a wood rim.
 - **Ambience:** slow, looping, subtle — Muguri's bob (2.6 s), sprout sway (5 s), garden's breathing warm light wash (9 s, top edge only, ≤0.36 effective alpha). Never attention-grabbing.
 - **Muguri:** idle = bob + blink · hint = leaf raised like a hand (−38° overshoot wave) · cheer = both leaves up + squash-and-stretch hop (`transform-origin: 50% 100%`) · sleepy = drooped leaves + closed happy eyes.
 
@@ -87,6 +88,7 @@ Test every asset at **28 px** (help button) · **64 px** (field/tiles) · **96�
 | Confetti / sparkles / level card                         | `src/lib/components/{Confetti,Sparkles,LevelComplete}.svelte`                                                                           |
 | Garden field scene                                       | `src/routes/play/counting/[level]/+page.svelte`                                                                                         |
 | Color Match portal + action cue                          | `src/lib/games/color-match/ColorPortal.svelte`, `src/lib/components/art/GhostHand.svelte`, `src/lib/components/art/GhostBalloon.svelte` |
+| Peekaboo Pairs board + leaf card back                    | `src/lib/games/peekaboo-pairs/MemoryBoard.svelte`                                                                                       |
 | App icon source                                          | `src/lib/assets/icon.svg` → `pnpm icons`                                                                                                |
 
 ## 8. How art ships
