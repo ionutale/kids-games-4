@@ -51,6 +51,8 @@
 	const showCalibration = $derived(
 		import.meta.env.DEV && page.url.searchParams.get('calibrate') === '1'
 	);
+	// Temporary, dev-only: lets the owner open every level for the feel pass.
+	const devUnlock = $derived(import.meta.env.DEV && page.url.searchParams.get('unlock') === '1');
 
 	function clearTimers(): void {
 		if (idleTimer) window.clearTimeout(idleTimer);
@@ -102,7 +104,12 @@
 	$effect(() => {
 		if (!decided) return;
 		const n = paramLevel;
-		if (!Number.isInteger(n) || n < 1 || n > MAX_LEVEL || !isLevelOpen(cleared, n)) {
+		if (
+			!Number.isInteger(n) ||
+			n < 1 ||
+			n > MAX_LEVEL ||
+			(!devUnlock && !isLevelOpen(cleared, n))
+		) {
 			void goto('/play/peekaboo-pairs');
 			return;
 		}

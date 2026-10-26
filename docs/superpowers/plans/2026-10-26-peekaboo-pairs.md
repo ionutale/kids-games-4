@@ -757,7 +757,7 @@ Write the owner's peek durations into `LEVELS`; if the gap changed, set the new 
 
 - [ ] **Step 3: Remove the calibration panel**
 
-Delete `CalibrationPanel.svelte`; remove its import, `cal` state, the `?calibrate=1` block and the `cardPx` binding from the level route. `MemoryBoard` keeps `cols`/`rows`/`gap` props, fed from the level config. With `?calibrate=1`, nothing renders.
+Delete `CalibrationPanel.svelte`; remove its import, `cal` state, the `?calibrate=1` block and the `cardPx` binding from the level route. Also remove the temporary `devUnlock` flag and restore the plain level gate. `MemoryBoard` keeps `cols`/`rows`/`gap` props, fed from the level config. With `?calibrate=1` or `?unlock=1`, nothing special happens.
 
 - [ ] **Step 4: Re-run the gate and the mobile check**
 
