@@ -110,6 +110,16 @@ describe('pairs session', () => {
 		expect(index).not.toBeNull();
 		expect(s.matched).not.toContain(s.board.cards[index!]!.pairId);
 	});
+	it('never points hintIndex at a card that is currently flipped', () => {
+		const s = createPairsSession(1, 1);
+		s.peekDone();
+		const other = s.board.cards.findIndex((card) => card.pairId !== s.board.cards[0]!.pairId);
+		s.flip(0);
+		s.flip(other);
+		expect(s.flipped).toEqual([0, other]);
+		expect(s.hintIndex).not.toBe(0);
+		expect(s.hintIndex).not.toBe(other);
+	});
 	it('keeps the configured peek time', () => {
 		const s = createPairsSession(3, 1);
 		expect(s.board.peekMs).toBe(LEVELS[2]!.peekMs);

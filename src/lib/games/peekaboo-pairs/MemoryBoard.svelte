@@ -141,11 +141,11 @@
 				</span>
 				<span class="face face-front" aria-hidden="true">
 					{@render art(card.picture, Math.max(24, Math.round(cardPx * 0.62)))}
-					{#if matched.includes(card.pairId)}
-						<Sparkles x={50} y={50} count={8} />
-					{/if}
 				</span>
 			</span>
+			{#if matched.includes(card.pairId)}
+				<Sparkles x={50} y={50} count={8} />
+			{/if}
 		</button>
 	{/each}
 </div>
@@ -293,8 +293,6 @@
 	@media (prefers-reduced-motion: reduce) {
 		.inner,
 		.card.staggering .inner {
-			transition: opacity 320ms ease;
-			transition-duration: 320ms !important;
 			transform: none !important;
 			transition-delay: 0ms;
 		}
@@ -320,9 +318,13 @@
 			opacity: 0;
 		}
 
-		.card.nudge .face-back,
+		.card.nudge .face-back {
+			box-shadow: 0 0 0 2px var(--cn-gold);
+			animation: none;
+		}
+
 		.card.glow .face-back {
-			box-shadow: 0 0 0 4px var(--cn-gold);
+			box-shadow: 0 0 0 5px var(--cn-gold);
 			animation: none;
 		}
 

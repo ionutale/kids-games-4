@@ -161,8 +161,12 @@
 					// storage unavailable: the celebration still plays
 				}
 			}
-			audio.playSfx('unlock');
 		}
+	});
+
+	// The unlock sting belongs to the completion card, not the final match.
+	$effect(() => {
+		if (session?.phase === 'complete') audio.playSfx('unlock');
 	});
 
 	const caption = $derived.by(() => {

@@ -87,7 +87,8 @@ export function createPairsSession(level: number, seed?: number): PairsSession {
 			const board = boards[boardIndex];
 			if (!board) return null;
 			for (let i = 0; i < board.cards.length; i += 1) {
-				if (!state.matched.includes(board.cards[i]!.pairId)) return i;
+				const card = board.cards[i]!;
+				if (!state.matched.includes(card.pairId) && !state.flipped.includes(i)) return i;
 			}
 			return null;
 		},
