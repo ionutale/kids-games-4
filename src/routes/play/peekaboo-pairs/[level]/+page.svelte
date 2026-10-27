@@ -17,7 +17,6 @@
 		type PairsSession
 	} from '#lib/games/peekaboo-pairs/session.svelte.js';
 	import MemoryBoard from '#lib/games/peekaboo-pairs/MemoryBoard.svelte';
-	import CalibrationPanel from '#lib/games/peekaboo-pairs/CalibrationPanel.svelte';
 	import IconButton from '#lib/components/ui/IconButton.svelte';
 	import MuteButton from '#lib/components/ui/MuteButton.svelte';
 	import LevelComplete from '#lib/components/LevelComplete.svelte';
@@ -28,6 +27,7 @@
 	const BOARD_MS = 900;
 	const IDLE_MS = 6000;
 	const REVEAL_MS = 1200;
+	const CARD_GAP = 12;
 
 	let cleared = $state(0);
 	let hasProfile = $state(false);
@@ -36,10 +36,8 @@
 	let session = $state<PairsSession | null>(null);
 	let tryAgain = $state(false);
 	let revealIndex = $state<number | null>(null);
-	let cardPx = $state(0);
 	let savedFor = $state(0);
-	// Board feel overrides for the dev calibration panel.
-	let cal = $state({ peekMs: 3000, gap: 12, cols: 2, rows: 2 });
+	let config = $state(LEVELS[0]!);
 
 	let idleTimer = 0;
 	let peekTimer = 0;
@@ -48,11 +46,6 @@
 	let revealTimer = 0;
 
 	const paramLevel = $derived(Number.parseInt(page.params.level ?? '', 10));
-	const showCalibration = $derived(
-		import.meta.env.DEV && page.url.searchParams.get('calibrate') === '1'
-	);
-	// Temporary, dev-only: lets the owner open every level for the feel pass.
-	const devUnlock = $derived(import.meta.env.DEV && page.url.searchParams.get('unlock') === '1');
 
 	function clearTimers(): void {
 		if (idleTimer) window.clearTimeout(idleTimer);
@@ -73,7 +66,7 @@
 			peekTimer = 0;
 			session?.peekDone();
 			revealIndex = null;
-		}, cal.peekMs);
+		}, session?.board.peekMs ?? config.peekMs);
 	}
 
 	function armIdle(): void {
@@ -104,12 +97,7 @@
 	$effect(() => {
 		if (!decided) return;
 		const n = paramLevel;
-		if (
-			!Number.isInteger(n) ||
-			n < 1 ||
-			n > MAX_LEVEL ||
-			(!devUnlock && !isLevelOpen(cleared, n))
-		) {
+		if (!Number.isInteger(n) || n < 1 || n > MAX_LEVEL || !isLevelOpen(cleared, n)) {
 			void goto('/play/peekaboo-pairs');
 			return;
 		}
@@ -117,11 +105,9 @@
 			clearTimers();
 			level = n;
 			session = createPairsSession(n, Date.now());
-			const config = LEVELS[n - 1]!;
-			cal = { peekMs: config.peekMs, gap: 12, cols: config.cols, rows: config.rows };
+			config = LEVELS[n - 1]!;
 			tryAgain = false;
 			revealIndex = null;
-			cardPx = 0;
 			savedFor = 0;
 			armPeek();
 			armIdle();
@@ -303,15 +289,6 @@
 		armPeek();
 		armIdle();
 	}
-
-	function calibrationReplay(): void {
-		if (!session) return;
-		clearTimers();
-		session = createPairsSession(level, Date.now());
-		tryAgain = false;
-		revealIndex = null;
-		armPeek();
-	}
 </script>
 
 <svelte:head>
@@ -380,26 +357,13 @@
 			cardBackLabel={m.pairs_card_back()}
 			boardLabel={m.game_peekaboo_name()}
 			{labelFor}
-			cols={cal.cols}
-			rows={cal.rows}
-			gap={cal.gap}
-			bind:cardPx
+			cols={config.cols}
+			rows={config.rows}
+			gap={CARD_GAP}
 			onflip={flip}
 		/>
 	{/if}
 </div>
-
-{#if session && showCalibration}
-	<CalibrationPanel
-		peekMs={cal.peekMs}
-		gap={cal.gap}
-		cols={cal.cols}
-		rows={cal.rows}
-		{cardPx}
-		onchange={(patch) => (cal = { ...cal, ...patch })}
-		onreplay={calibrationReplay}
-	/>
-{/if}
 
 {#if session?.phase === 'complete'}
 	<LevelComplete

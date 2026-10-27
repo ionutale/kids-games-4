@@ -22,7 +22,6 @@
 		cols: number;
 		rows: number;
 		gap: number;
-		cardPx?: number; // $bindable, reports measured card width
 		onflip: (index: number) => void;
 	}
 
@@ -40,10 +39,10 @@
 		cols,
 		rows,
 		gap,
-		cardPx = $bindable(0),
 		onflip
 	}: Props = $props();
 
+	let cardPx = $state(0);
 	let gridWidth = $state(0);
 	let staggering = $state(false);
 	let wasPeek = true;
