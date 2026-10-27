@@ -36,6 +36,8 @@
 	let session = $state<PairsSession | null>(null);
 	let tryAgain = $state(false);
 	let revealIndex = $state<number | null>(null);
+	let hintShown = $state(0);
+	let cheering = $state(false);
 	let savedFor = $state(0);
 	let config = $state(LEVELS[0]!);
 
@@ -44,6 +46,7 @@
 	let missTimer = 0;
 	let boardTimer = 0;
 	let revealTimer = 0;
+	let cheerTimer = 0;
 
 	const paramLevel = $derived(Number.parseInt(page.params.level ?? '', 10));
 
@@ -53,11 +56,14 @@
 		if (missTimer) window.clearTimeout(missTimer);
 		if (boardTimer) window.clearTimeout(boardTimer);
 		if (revealTimer) window.clearTimeout(revealTimer);
+		if (cheerTimer) window.clearTimeout(cheerTimer);
 		idleTimer = 0;
 		peekTimer = 0;
 		missTimer = 0;
 		boardTimer = 0;
 		revealTimer = 0;
+		cheerTimer = 0;
+		cheering = false;
 	}
 
 	function armPeek(): void {
@@ -114,11 +120,18 @@
 		}
 	});
 
-	// Stage-3 hint: briefly reveal one card, then hide it again.
+	// Stage-3 hint: reveal one card once when the stage is entered, then hide
+	// it again. The sentinel stops later matches from re-triggering the reveal.
 	$effect(() => {
-		if (!session || session.hint !== 3) return;
+		if (!session) return;
+		if (session.hint < 3) {
+			hintShown = 0;
+			return;
+		}
+		if (hintShown >= 3) return;
 		const index = session.hintIndex;
 		if (index === null) return;
+		hintShown = 3;
 		if (revealTimer) window.clearTimeout(revealTimer);
 		revealIndex = index;
 		revealTimer = window.setTimeout(() => {
@@ -127,9 +140,12 @@
 		}, REVEAL_MS);
 	});
 
-	// Persist once per completion.
+	// Persist once per completion. Save on the final match's celebration, not
+	// after the beat, so leaving during the beat cannot lose the clear.
 	$effect(() => {
-		if (session?.phase === 'complete' && level > 0 && savedFor !== level) {
+		const finished =
+			session?.phase === 'complete' || (session?.phase === 'celebrating' && session.isLastBoard);
+		if (finished && level > 0 && savedFor !== level) {
 			savedFor = level;
 			if (idleTimer) window.clearTimeout(idleTimer);
 			if (hasProfile) {
@@ -159,8 +175,8 @@
 		if (session.hint === 1) return m.pairs_hint_nudge();
 		return m.pairs_find();
 	});
-	const mascotPose = $derived(
-		session?.phase === 'celebrating' ? 'cheer' : ('idle' as 'idle' | 'cheer')
+	const mascotPose = $derived<'idle' | 'cheer'>(
+		session?.phase === 'celebrating' || cheering ? 'cheer' : 'idle'
 	);
 
 	function fruitName(id: Picture & { theme: 'fruit' }): string {
@@ -258,6 +274,12 @@
 		} else if (result === 'match') {
 			audio.playSfx('correct');
 			tryAgain = false;
+			cheering = true;
+			if (cheerTimer) window.clearTimeout(cheerTimer);
+			cheerTimer = window.setTimeout(() => {
+				cheerTimer = 0;
+				cheering = false;
+			}, 700);
 			if (session.phase === 'celebrating') {
 				if (boardTimer) window.clearTimeout(boardTimer);
 				boardTimer = window.setTimeout(() => {
@@ -341,7 +363,14 @@
 				<Muguri pose={mascotPose} size={64} />
 			</span>
 			<p class="prompt" aria-live="polite">{caption}</p>
-			<IconButton label={m.pairs_hint_nudge()} size="sm" onclick={() => session?.help()}>
+			<IconButton
+				label={m.pairs_hint_nudge()}
+				size="sm"
+				onclick={() => {
+					audio.playSfx('hint');
+					session?.help();
+				}}
+			>
 				<Muguri pose="hint" size={28} />
 			</IconButton>
 		</div>

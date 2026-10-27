@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
+	BALLOON_POOL,
 	BOARDS_PER_LEVEL,
 	EMPTY_BOARD_STATE,
+	FRIEND_POOL,
+	FRUIT_POOL,
 	LEVELS,
 	MAX_LEVEL,
 	NEAR_PAIRS,
@@ -36,6 +39,12 @@ describe('level table', () => {
 			expect(LEVELS[i]!.peekMs).toBeLessThan(LEVELS[i - 1]!.peekMs);
 	});
 	it('keeps every pool large enough', () => {
+		expect(FRUIT_POOL.length).toBeGreaterThanOrEqual(10);
+		expect(BALLOON_POOL.length).toBeGreaterThanOrEqual(12);
+		expect(FRIEND_POOL.length).toBeGreaterThanOrEqual(8);
+		expect(new Set(FRUIT_POOL).size).toBe(FRUIT_POOL.length);
+		expect(new Set(BALLOON_POOL).size).toBe(BALLOON_POOL.length);
+		expect(new Set(FRIEND_POOL).size).toBe(FRIEND_POOL.length);
 		for (const level of LEVELS) expect(level.pairs).toBeGreaterThanOrEqual(2);
 	});
 });
@@ -121,8 +130,13 @@ describe('applyFlip', () => {
 	it('ignores a third tap while two cards are up', () => {
 		const first = applyFlip(board, EMPTY_BOARD_STATE, 0).state;
 		const miss = applyFlip(board, first, otherIndex).state;
+		const third = board.cards.findIndex((_, i) => i !== 0 && i !== otherIndex);
 		expect(miss.flipped).toHaveLength(2);
-		expect(applyFlip(board, miss, 1).result).toBe('ignored');
+		expect(applyFlip(board, miss, third).result).toBe('ignored');
+	});
+	it('ignores a tap on an already matched card', () => {
+		const state = { flipped: [], matched: [board.cards[0]!.pairId], misses: 0 };
+		expect(applyFlip(board, state, 0).result).toBe('ignored');
 	});
 	it('matches identical pictures and clears the flip', () => {
 		const first = applyFlip(board, EMPTY_BOARD_STATE, 0).state;

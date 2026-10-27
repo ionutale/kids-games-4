@@ -5,6 +5,7 @@
 	import Fruit from '#lib/components/art/Fruit.svelte';
 	import Mimo from '#lib/components/art/Mimo.svelte';
 	import Muguri from '#lib/components/art/Muguri.svelte';
+	import Sparkles from '#lib/components/Sparkles.svelte';
 	import type { Board, Picture } from '#lib/games/peekaboo-pairs/rules.js';
 	import type { PairsPhase } from '#lib/games/peekaboo-pairs/session.svelte.js';
 
@@ -106,12 +107,16 @@
 			class:up
 			class:nudge={hint >= 1 && !up}
 			class:glow={hint === 2 && !up && i === hintIndex}
+			class:miss={flipped.length === 2 && flipped.includes(i)}
 			class:cleared={phase === 'celebrating' && matched.includes(card.pairId)}
 			class:staggering
 			style="--i:{i}"
 			aria-pressed={up}
-			aria-label={up ? labelFor(card.picture) : cardBackLabel}
-			onclick={() => onflip(i)}
+			aria-label={up ? labelFor(card.picture) : `${cardBackLabel} ${i + 1}`}
+			onclick={() => {
+				staggering = false;
+				onflip(i);
+			}}
 		>
 			<span class="inner">
 				<span class="face face-back" aria-hidden="true">
@@ -136,6 +141,9 @@
 				</span>
 				<span class="face face-front" aria-hidden="true">
 					{@render art(card.picture, Math.max(24, Math.round(cardPx * 0.62)))}
+					{#if matched.includes(card.pairId)}
+						<Sparkles x={50} y={50} count={8} />
+					{/if}
 				</span>
 			</span>
 		</button>
@@ -234,6 +242,24 @@
 		animation: glow-pulse 900ms ease-in-out infinite;
 	}
 
+	/* A miss: a short, soft wiggle while the pair waits to flip back. */
+	.card.miss {
+		animation: miss-wiggle 360ms var(--cn-ease);
+	}
+
+	@keyframes miss-wiggle {
+		0%,
+		100% {
+			transform: rotate(0deg);
+		}
+		30% {
+			transform: rotate(-2deg);
+		}
+		70% {
+			transform: rotate(2deg);
+		}
+	}
+
 	@keyframes glow-pulse {
 		0%,
 		100% {
@@ -268,13 +294,16 @@
 		.inner,
 		.card.staggering .inner {
 			transition: opacity 320ms ease;
+			transition-duration: 320ms !important;
 			transform: none !important;
 			transition-delay: 0ms;
 		}
 
 		.face-front {
 			opacity: 0;
+			transform: none;
 			transition: opacity 320ms ease;
+			transition-duration: 320ms !important;
 		}
 
 		.card.up .face-front {
@@ -284,14 +313,21 @@
 		.face-back {
 			opacity: 1;
 			transition: opacity 320ms ease;
+			transition-duration: 320ms !important;
 		}
 
 		.card.up .face-back {
 			opacity: 0;
 		}
 
+		.card.nudge .face-back,
+		.card.glow .face-back {
+			box-shadow: 0 0 0 4px var(--cn-gold);
+			animation: none;
+		}
+
 		.card.nudge,
-		.card.glow .face-back,
+		.card.miss,
 		.card.cleared {
 			animation: none;
 		}

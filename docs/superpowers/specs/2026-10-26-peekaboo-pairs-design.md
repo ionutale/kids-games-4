@@ -105,7 +105,7 @@ No new art components. Card faces render the shipped `Fruit`, `Balloon`, `Avatar
 - **Save:** untouched — per-`gameId` progress and level unlocking reuse `save.ts` exactly.
 - **Audio:** reuse `tap` (flip), `correct` (match), `wrong` (mismatch), `hint`, `celebrate`, `unlock`. No new music, no TTS.
 - **i18n:** new keys in all four locales — game name/description, peek/remember/find/tap prompts, three hint lines, 10 fruit names (singular, for card labels), 8 friend names, and a card-back label. Balloon names reuse the existing `color_*` keys. ~24 keys × 4 languages.
-- **Accessibility:** each card is a button with a localized picture name; face-down cards announce the same name plus "face down"; `aria-pressed` reflects the up state; the grid has a label; peek state is announced once via the existing polite live region; focus ring visible; reduced motion honored.
+- **Accessibility:** each card is a button; a face-up card announces its localized picture name, a face-down card announces only "face-down card" plus its position (so the answer is never leaked); `aria-pressed` reflects the up state; the grid has a label; peek state is announced once via the existing polite live region; focus ring visible; reduced motion uses an opacity crossfade and static hint rings instead of the flip, wiggle and glow animations.
 
 ## Non-goals
 

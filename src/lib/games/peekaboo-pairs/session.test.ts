@@ -76,11 +76,13 @@ describe('pairs session', () => {
 		}
 		expect(s.phase).toBe('complete');
 	});
-	it('replays from the first board with fresh state', () => {
+	it('replays from the first board with fresh state and new boards', () => {
 		const s = createPairsSession(1, 1);
 		s.peekDone();
 		s.flip(0);
+		const before = s.boards;
 		s.replay();
+		expect(s.boards).not.toEqual(before);
 		expect(s.boardIndex).toBe(0);
 		expect(s.phase).toBe('peek');
 		expect(s.flipped).toEqual([]);
@@ -96,12 +98,17 @@ describe('pairs session', () => {
 		s.help();
 		expect(s.hint).toBeGreaterThanOrEqual(1);
 	});
-	it('points hintIndex at an unmatched pair', () => {
+	it('points hintIndex at an unmatched pair after a match', () => {
 		const s = createPairsSession(1, 1);
 		s.peekDone();
+		const pairId = s.board.cards[0]!.pairId;
+		const twin = s.board.cards.findIndex((card, i) => i > 0 && card.pairId === pairId);
+		s.flip(0);
+		s.flip(twin);
+		expect(s.matched).toContain(pairId);
 		const index = s.hintIndex;
 		expect(index).not.toBeNull();
-		expect(s.board.cards[index!]).toBeDefined();
+		expect(s.matched).not.toContain(s.board.cards[index!]!.pairId);
 	});
 	it('keeps the configured peek time', () => {
 		const s = createPairsSession(3, 1);
