@@ -4,7 +4,8 @@
  * one entry here.
  */
 
-export type GameId = 'counting' | 'color-match' | 'acorn-add' | 'feelings-faces' | 'peekaboo-pairs';
+export type GameId =
+	'counting' | 'color-match' | 'acorn-add' | 'feelings-faces' | 'peekaboo-pairs' | 'brush-along';
 
 export interface GameMeta {
 	id: GameId;
@@ -14,7 +15,7 @@ export interface GameMeta {
 	descKey: string;
 	href: string;
 	accent: 'leaf' | 'accent' | 'berry';
-	icon: 'fruit' | 'color' | 'logic' | 'face' | 'pairs';
+	icon: 'fruit' | 'color' | 'logic' | 'face' | 'pairs' | 'brush';
 }
 
 export const GAMES: GameMeta[] = [
@@ -57,6 +58,14 @@ export const GAMES: GameMeta[] = [
 		href: '/play/peekaboo-pairs',
 		accent: 'berry',
 		icon: 'pairs'
+	},
+	{
+		id: 'brush-along',
+		titleKey: 'game_brush_name',
+		descKey: 'game_brush_desc',
+		href: '/play/brush-along',
+		accent: 'leaf',
+		icon: 'brush'
 	}
 ];
 

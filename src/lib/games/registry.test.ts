@@ -47,6 +47,14 @@ describe('GAMES', () => {
 				href: '/play/peekaboo-pairs',
 				accent: 'berry',
 				icon: 'pairs'
+			},
+			{
+				id: 'brush-along',
+				titleKey: 'game_brush_name',
+				descKey: 'game_brush_desc',
+				href: '/play/brush-along',
+				accent: 'leaf',
+				icon: 'brush'
 			}
 		]);
 	});
@@ -71,6 +79,10 @@ describe('getGame', () => {
 
 	it('finds the peekaboo-pairs game', () => {
 		expect(getGame('peekaboo-pairs')).toEqual(GAMES[4]);
+	});
+
+	it('finds the brush-along game', () => {
+		expect(getGame('brush-along')).toEqual(GAMES[5]);
 	});
 
 	it('returns undefined for an unknown game', () => {

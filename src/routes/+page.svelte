@@ -29,14 +29,16 @@
 		game_color_match_name: () => m.game_color_match_name(),
 		game_acorn_add_name: () => m.game_acorn_add_name(),
 		game_feelings_name: () => m.game_feelings_name(),
-		game_peekaboo_name: () => m.game_peekaboo_name()
+		game_peekaboo_name: () => m.game_peekaboo_name(),
+		game_brush_name: () => m.game_brush_name()
 	};
 	const DESCS: Record<string, () => string> = {
 		game_counting_desc: () => m.game_counting_desc(),
 		game_color_match_desc: () => m.game_color_match_desc(),
 		game_acorn_add_desc: () => m.game_acorn_add_desc(),
 		game_feelings_desc: () => m.game_feelings_desc(),
-		game_peekaboo_desc: () => m.game_peekaboo_desc()
+		game_peekaboo_desc: () => m.game_peekaboo_desc(),
+		game_brush_desc: () => m.game_brush_desc()
 	};
 
 	function gameTitle(game: GameMeta): string {
@@ -287,6 +289,45 @@
 										<path d="M26 30 Q19 24 13 27 Q19 34 26 30 Z" />
 										<path d="M24 24 Q29 17 36 19 Q32 27 24 24 Z" />
 									</g>
+								</g>
+							</svg>
+						{:else if game.icon === 'brush'}
+							<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" focusable="false">
+								<path
+									d="M8 52 Q22 38 34 45 Q46 52 56 40"
+									fill="none"
+									stroke="var(--cn-leaf)"
+									stroke-width="6"
+									stroke-linecap="round"
+								/>
+								<g transform="rotate(-38 41 25)">
+									<rect
+										x="37"
+										y="4"
+										width="8"
+										height="24"
+										rx="3"
+										fill="var(--cn-wood)"
+										stroke="var(--cn-ink)"
+										stroke-width="1.2"
+									/>
+									<rect
+										x="34.5"
+										y="26"
+										width="13"
+										height="7"
+										rx="2"
+										fill="var(--cn-gold)"
+										stroke="var(--cn-ink)"
+										stroke-width="1"
+									/>
+									<path
+										d="M35 33 Q41 46 48 33 Z"
+										fill="var(--cn-berry)"
+										stroke="var(--cn-ink)"
+										stroke-width="1"
+										stroke-linejoin="round"
+									/>
 								</g>
 							</svg>
 						{:else}
