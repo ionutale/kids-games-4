@@ -30,33 +30,33 @@ There is no lose state: unfinished strokes stay, hints escalate, and the final h
 
 Pre-writing order: vertical → horizontal → cross → diagonal → curve → circle → loop → combined. One scene per level, 3–5 strokes.
 
-| Level | Scene      | Stroke practice                     | Strokes | Payoff                |
-| ----- | ---------- | ----------------------------------- | ------: | --------------------- |
-| 1     | Rain       | long vertical lines                 |       3 | rain falls            |
-| 2     | Grass      | short vertical lines                |       4 | grass sways           |
-| 3     | Fence      | horizontal lines                    |       3 | a flower pops up      |
-| 4     | Ladder     | vertical + horizontal (cross)       |       5 | Muguri climbs         |
-| 5     | Sun rays   | diagonal lines                      |       4 | sun brightens         |
-| 6     | Kite       | crossed diagonals + a curved tail   |       3 | kite lifts            |
-| 7     | Hills      | long curves                         |       3 | the path glows        |
-| 8     | Flower     | curves + a circle center            |       4 | flower blooms         |
-| 9     | Butterfly  | loops                               |       3 | butterfly flutters    |
-| 10    | Rainbow    | arcs + a spiral                     |       4 | rainbow sparkles      |
+| Level | Scene     | Stroke practice                   | Strokes | Payoff             |
+| ----- | --------- | --------------------------------- | ------: | ------------------ |
+| 1     | Rain      | long vertical lines               |       3 | rain falls         |
+| 2     | Grass     | short vertical lines              |       4 | grass sways        |
+| 3     | Fence     | horizontal lines                  |       3 | a flower pops up   |
+| 4     | Ladder    | vertical + horizontal (cross)     |       5 | Muguri climbs      |
+| 5     | Sun rays  | diagonal lines                    |       4 | sun brightens      |
+| 6     | Kite      | crossed diagonals + a curved tail |       3 | kite lifts         |
+| 7     | Hills     | long curves                       |       3 | the path glows     |
+| 8     | Flower    | curves + a circle center          |       4 | flower blooms      |
+| 9     | Butterfly | loops                             |       3 | butterfly flutters |
+| 10    | Rainbow   | arcs + a spiral                   |       4 | rainbow sparkles   |
 
 ### Scene decomposition (builder call, pinned)
 
-| Level | Backdrop (not painted)            | Painted strokes                                                                 | Color |
-| ----- | --------------------------------- | ------------------------------------------------------------------------------- | ----- |
-| 1     | cloud, ground strip               | 3 verticals at x = 30 / 50 / 70, y 30→72                                        | blue |
-| 2     | ground strip                      | 4 short verticals at x = 25 / 40 / 55 / 70, y 82→64                              | leaf |
-| 3     | two fence posts                   | 3 horizontals x 15→85 at y = 45 / 57 / 69                                        | wood |
-| 4     | tree trunk                        | 2 vertical rails at x = 42 / 58, y 22→82; 3 rungs x 42→58 at y = 38 / 52 / 66     | wood |
-| 5     | sun disc at (50, 52), r 18        | 4 diagonals from r 22 to r 40 at 45° / 135° / 225° / 315°                        | gold |
-| 6     | kite diamond body                 | 2 crossed frame lines inside the body; 1 curved tail down to (56, 84)            | accent |
-| 7     | sky and ground                    | 3 long curves across the bottom at three heights                                 | leaf |
-| 8     | pot and soft petal outlines       | stem curve (50, 78)→(50, 55); two leaf curves; circle center at (50, 45), r 6    | berry |
-| 9     | butterfly body                    | left wing loop, right wing loop, one flight-trail loop below                     | purple |
-| 10    | cloud at the lower left           | 3 arcs centered (50, 85) with radii 28 / 36 / 44; one 2-turn spiral in the cloud | red / gold / blue / teal |
+| Level | Backdrop (not painted)      | Painted strokes                                                                  | Color                    |
+| ----- | --------------------------- | -------------------------------------------------------------------------------- | ------------------------ |
+| 1     | cloud, ground strip         | 3 verticals at x = 30 / 50 / 70, y 30→72                                         | blue                     |
+| 2     | ground strip                | 4 short verticals at x = 25 / 40 / 55 / 70, y 82→64                              | leaf                     |
+| 3     | two fence posts             | 3 horizontals x 15→85 at y = 45 / 57 / 69                                        | wood                     |
+| 4     | tree trunk                  | 2 vertical rails at x = 42 / 58, y 22→82; 3 rungs x 42→58 at y = 38 / 52 / 66    | wood                     |
+| 5     | sun disc at (50, 52), r 18  | 4 diagonals from r 22 to r 40 at 45° / 135° / 225° / 315°                        | gold                     |
+| 6     | kite diamond body           | 2 crossed frame lines inside the body; 1 curved tail down to (56, 84)            | accent                   |
+| 7     | sky and ground              | 3 long curves across the bottom at three heights                                 | leaf                     |
+| 8     | pot and soft petal outlines | stem curve (50, 78)→(50, 55); two leaf curves; circle center at (50, 45), r 6    | berry                    |
+| 9     | butterfly body              | left wing loop, right wing loop, one flight-trail loop below                     | purple                   |
+| 10    | cloud at the lower left     | 3 arcs centered (50, 85) with radii 28 / 36 / 44; one 2-turn spiral in the cloud | red / gold / blue / teal |
 
 **Rainbow color model:** one stroke is one solid color. The rainbow's three arcs are red, gold and blue bands drawn inside each other, which reads as a rainbow without per-point gradients; the spiral is the cloud's teal curl. No stroke needs multi-color rendering.
 
@@ -100,9 +100,9 @@ Family philosophy: never stuck, never punished.
 - **Routes:** `/play/brush-along` (map) and `/play/brush-along/[level]` (board), mirroring the family.
 - **Module:** `src/lib/games/brush-along/rules.ts`, `rules.test.ts`, `session.svelte.ts`, `session.test.ts`, `BrushBoard.svelte`, `BrushScene.svelte`.
 - **Save:** untouched — per-game progress and unlocking reuse `save.ts`.
-- **Audio:** reuse `tap`, `correct`, `wrong` (soft drift cue only), `hint`, `celebrate`, `unlock`. No new music.
+- **Audio:** reuse `tap` (one soft cue per stroke), `correct` (stroke and scene complete), `hint`, `celebrate`, `unlock`. Drifting off the line is silent — no wrong cue. No new music.
 - **i18n:** ~12 new keys × 4 locales — game name/description, trace prompt, three hint lines, scene names, stroke progress label, completion caption. Stroke labels are generic ("Stroke 2 of 3"); the scene name carries the picture.
-- **Accessibility:** the board has a localized label; each stroke exposes its progress via a polite live region; the help button can complete any stroke, so a caregiver can finish a level; keyboard users can focus the board and use the help button; reduced motion honored. Tracing itself requires pointer/motor control — stated as a known limitation.
+- **Accessibility:** the board has a localized label carrying the scene name; each stroke exposes its progress via a polite live region; the help button can complete any stroke, so a caregiver can finish a level; keyboard users can reach and use the help button; reduced motion honored. Tracing itself requires pointer/motor control — stated as a known limitation.
 
 ## Non-goals
 
