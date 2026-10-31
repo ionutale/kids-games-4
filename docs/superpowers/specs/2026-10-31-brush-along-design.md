@@ -1,6 +1,6 @@
 # Brush Along — design spec (game #6, milestone 6)
 
-Date: 2026-10-31 · Status: draft — awaiting owner approval · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-6`
+Date: 2026-10-31 · Status: implemented — milestone 6, pending review · Base spec: `2026-10-08-cozy-nook-design.md` · Branch: `milestone-6`
 
 ## Goal
 

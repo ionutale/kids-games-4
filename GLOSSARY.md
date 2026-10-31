@@ -32,6 +32,22 @@ _Avoid_: match, twin
 Two different pictures that look alike on purpose — an orange balloon and an orange fruit, light blue and dark blue. Kept off the board below level 8, allowed sparingly after it.
 _Avoid_: similar pair, trick pair
 
+**Trace**:
+Drag a brush along a dotted guide until enough of it is covered. Brush Along's core verb.
+_Avoid_: draw, paint, follow
+
+**Stroke**:
+One guided line in Brush Along. A scene has three to five strokes, and each one is a real part of the picture.
+_Avoid_: line, path, round
+
+**Scene**:
+The small garden picture a Brush Along level builds — rain, grass, a kite, a flower. Finish every stroke and the scene comes alive.
+_Avoid_: picture, level, board
+
+**Coverage**:
+The share of a stroke's sampled points the brush has touched. At 85% the stroke completes; the rest is forgiven.
+_Avoid_: score, progress, accuracy
+
 **Unlock**:
 Making the next level playable once the current level is completed. Unlocking is permanent per profile.
 _Avoid_: open, release
