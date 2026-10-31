@@ -54,7 +54,7 @@ Pre-writing order: vertical → horizontal → cross → diagonal → curve → 
 | 5     | sun disc at (50, 52), r 18  | 4 diagonals from r 22 to r 40 at 45° / 135° / 225° / 315°                        | gold                     |
 | 6     | kite diamond body           | 2 crossed frame lines inside the body; 1 curved tail down to (56, 84)            | accent                   |
 | 7     | sky and ground              | 3 long curves across the bottom at three heights                                 | leaf                     |
-| 8     | pot and soft petal outlines | stem curve (50, 78)→(50, 55); two leaf curves; circle center at (50, 45), r 6    | berry                    |
+| 8     | pot and soft petal outlines | stem curve (50, 78)→(50, 55); two leaf curves; circle center at (50, 45), r 5    | berry                    |
 | 9     | butterfly body              | left wing loop, right wing loop, one flight-trail loop below                     | purple                   |
 | 10    | cloud at the lower left     | 3 arcs centered (50, 85) with radii 28 / 36 / 44; one 2-turn spiral in the cloud | red / gold / blue / teal |
 
