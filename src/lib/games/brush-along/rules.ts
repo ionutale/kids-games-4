@@ -271,11 +271,11 @@ export const SCENES: SceneConfig[] = [
 		level: 6,
 		id: 'kite',
 		strokes: [
-			brushStroke('kite-1', line({ x: 40, y: 20 }, { x: 60, y: 42 }), ACCENT_COLOR),
-			brushStroke('kite-2', line({ x: 60, y: 20 }, { x: 40, y: 42 }), ACCENT_COLOR),
+			brushStroke('kite-1', line({ x: 44, y: 22 }, { x: 56, y: 40 }), ACCENT_COLOR),
+			brushStroke('kite-2', line({ x: 56, y: 22 }, { x: 44, y: 40 }), ACCENT_COLOR),
 			brushStroke(
 				'kite-3',
-				curve({ x: 50, y: 56 }, { x: 44, y: 64 }, { x: 40, y: 84 }, { x: 56, y: 84 }),
+				curve({ x: 50, y: 49 }, { x: 44, y: 64 }, { x: 40, y: 84 }, { x: 56, y: 84 }),
 				ACCENT_COLOR
 			)
 		]

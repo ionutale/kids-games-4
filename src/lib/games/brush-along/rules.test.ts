@@ -146,7 +146,17 @@ describe('levels', () => {
 				expect(s.points.length).toBeGreaterThanOrEqual(20);
 				expect(s.tolerance).toBe(DEFAULT_TOLERANCE);
 				expect(s.color).toMatch(/^#[0-9a-f]{6}$/i);
+				for (const point of s.points) {
+					expect(point.x).toBeGreaterThanOrEqual(-1);
+					expect(point.x).toBeLessThanOrEqual(101);
+					expect(point.y).toBeGreaterThanOrEqual(-1);
+					expect(point.y).toBeLessThanOrEqual(101);
+				}
 			}
+	});
+	it('has unique scene ids and completes below one', () => {
+		expect(new Set(SCENES.map((scene) => scene.id)).size).toBe(SCENES.length);
+		expect(COMPLETION).toBeLessThan(1);
 	});
 	it('maps levels 1-10 and rejects the rest', () => {
 		for (let level = 1; level <= MAX_LEVEL; level += 1)

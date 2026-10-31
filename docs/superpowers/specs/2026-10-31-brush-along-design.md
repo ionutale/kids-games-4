@@ -21,7 +21,7 @@ The name is the verb: brush along the path. There is no wrong stroke — only un
 2. The kid drags. Every pointer segment is checked against the stroke's sample points; samples within tolerance become painted. Painted samples render as a thick round-capped line in the scene's paint color.
 3. Drifting away from the guide simply stops painting; the ink stays where it is. Lifting the finger keeps coverage and the kid can resume anywhere, in either direction.
 4. At **85% coverage** the stroke completes: it snaps to a clean solid line, sparkles, plays the correct chime, and Muguri cheers. The next stroke's guide appears after a short beat.
-5. After the last stroke, the scene payoff plays (rain falls, kite lifts, flower blooms…), then the family's LevelComplete card, save and unlock.
+5. After the last stroke, the scene payoff plays (rain falls, ribbons flutter, flower blooms…), then the family's LevelComplete card, save and unlock.
 6. Replay resets the scene and all strokes.
 
 There is no lose state: unfinished strokes stay, hints escalate, and the final hint stage paints the stroke for the kid.
@@ -37,7 +37,7 @@ Pre-writing order: vertical → horizontal → cross → diagonal → curve → 
 | 3     | Fence     | horizontal lines                  |       3 | a flower pops up   |
 | 4     | Ladder    | vertical + horizontal (cross)     |       5 | Muguri climbs      |
 | 5     | Sun rays  | diagonal lines                    |       4 | sun brightens      |
-| 6     | Kite      | crossed diagonals + a curved tail |       3 | kite lifts         |
+| 6     | Kite      | crossed diagonals + a curved tail |       3 | ribbons flutter    |
 | 7     | Hills     | long curves                       |       3 | the path glows     |
 | 8     | Flower    | curves + a circle center          |       4 | flower blooms      |
 | 9     | Butterfly | loops                             |       3 | butterfly flutters |
@@ -63,7 +63,7 @@ Pre-writing order: vertical → horizontal → cross → diagonal → curve → 
 ## Stroke model (pure, testable)
 
 - A stroke is a **polyline of sampled points** in a 0–100 normalized space, produced by shape helpers: `line`, `bezier`, `arc`, `circle`, `loop`, `spiral`. Sampling is dense enough (≈1 unit spacing) to look smooth and to make coverage meaningful.
-- Each stroke carries: `points`, `color`, `width`, `tolerance`, and a `start` point. The guide and the painted line render from the same points, so what the kid sees is exactly what is measured.
+- Each stroke carries: `points`, `color`, `width` and `tolerance`; the first sample is the start point. The guide and the painted line render from the same points, so what the kid sees is exactly what is measured.
 - **Coverage:** `paintedSamples / totalSamples`. Painting checks the distance from each unpainted sample to the **pointer segment** (not just the pointer point), so fast drags cannot skip samples.
 - **Tolerance** is generous: 7 units (≈24 px on a 340 px card). A stroke completes at 85% coverage; the last 15% is forgiven.
 - **No direction:** any start point and either direction count. The ghost brush demonstrates the intended stroke, but it is teaching, not gating.
@@ -84,7 +84,7 @@ Family philosophy: never stuck, never punished.
 - **Muguri help button**, per stroke:
   - press 1 — start dot pulses and the ghost repeats;
   - press 2 — a wide glowing band shows the tolerance corridor and the ghost traces slower;
-  - press 3 — the stroke auto-paints over 1.5 s, sparkles, and completes.
+  - press 3 — the stroke auto-paints, sparkles, and completes.
 - Help count resets on each new stroke. The help button is always on screen; the caption stays secondary.
 
 ## Scene art

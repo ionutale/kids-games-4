@@ -388,7 +388,8 @@
 	}
 
 	.scene.active .fill {
-		fill-opacity: 0.95;
+		/* Keep the traced strokes readable against the finished scene. */
+		fill-opacity: 0.55;
 		stroke-opacity: 0.55;
 	}
 

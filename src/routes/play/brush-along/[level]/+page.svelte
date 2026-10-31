@@ -247,6 +247,10 @@
 			{/each}
 		</div>
 
+		<p class="sr" aria-live="polite">
+			{m.brush_stroke({ n: session.strokeIndex + 1, total: session.scene.strokes.length })}
+		</p>
+
 		<div class="prompt-row">
 			<Muguri pose={mascotPose} size={64} />
 			<p class="prompt" aria-live="polite">{caption}</p>
@@ -355,5 +359,17 @@
 		position: absolute;
 		inset: 0;
 		pointer-events: none;
+	}
+
+	.sr {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
 	}
 </style>

@@ -20,7 +20,6 @@
 	let { scene, stroke, strokeIndex, painted, phase, helpCount, idle, sceneLabel, onpaint }: Props =
 		$props();
 
-	const GHOST_MS = 2200;
 	const GHOST_CYCLE_MS = 8000;
 
 	let surface = $state<SVGSVGElement | null>(null);
@@ -35,6 +34,8 @@
 		reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	});
 
+	// Help stage 2 shows the corridor and slows the demonstration down.
+	const ghostMs = $derived(helpCount >= 2 ? 3200 : 2200);
 	const guidePoints = $derived(stroke.points.map((p) => `${p.x},${p.y}`).join(' '));
 	const paintedPoints = $derived(
 		stroke.points.filter((_, index) => (painted[strokeIndex] ?? [])[index])
@@ -120,8 +121,9 @@
 		const step = (now: number) => {
 			if (!startedAt) startedAt = now;
 			const elapsed = (now - startedAt) % GHOST_CYCLE_MS;
-			if (elapsed < GHOST_MS) {
-				const t = elapsed / GHOST_MS;
+			const ghost = ghostMs;
+			if (elapsed < ghost) {
+				const t = elapsed / ghost;
 				const index = Math.min(points.length - 1, Math.floor(t * (points.length - 1)));
 				ghostPoint = points[index] ?? null;
 			} else {
@@ -229,6 +231,8 @@
 
 			{#if ghostPoint}
 				{@render brush(ghostPoint, true)}
+			{:else if !drawing}
+				{@render brush(stroke.points[0] ?? { x: 50, y: 50 }, false)}
 			{/if}
 
 			{#if drawing && cursor}
